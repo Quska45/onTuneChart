@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+
+# echo "🥸 : 커밋 전 검사를 시작합니다."
+
+# echo "🥸 : 린트 검사를 시작합니다."
+# npx lint-staged --concurrent true
+# # npm run lint:fix
+# echo "👍 : 린트 검사를 통과하였습니다. "
+
+# echo "🥸 : 테스트 코드를 시작합니다."
+# npm run test
+# echo "👍 : 기존 테스트 코드가 정상 동작 하는 것을 확인 했습니다."
+
+# echo "👍 : 모든 검사 사항이 통과되었습니다."
+
+# echo "👍 : 정상 커밋 완료. "

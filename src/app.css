@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* .tabulator-cell.tabulator-editing[tabulator-field='rating'] {
+    width: 100%;
+}
+.tabulator-cell.tabulator-editing[tabulator-field='rating'] {
+}
+
+.tabulator-cell.tabulator-editing[tabulator-field='rating'] > div {
+    width: 100%;
+}
+
+.tabulator-cell.tabulator-editing[tabulator-field='rating'] > div > span {
+    background: yellow;
+    width: 100%;
+    display: flex;
+}
+.tabulator-cell.tabulator-editing[tabulator-field='rating'] > div > span > svg {
+    width: 14px;
+    height: 14px;
+}
+.tabulator-cell[tabulator-field='rating'] > span {
+    display: flex;
+} */
+
+svg {
+    display: inline-block;
+}
+
+html,
+body {
+    height: 100%;
+}
+#app {
+    width: 100%;
+    height: 100%;
+}
+
+.sb-show-main.sb-main-padded {
+    padding: 0;
+}
