@@ -4,7 +4,7 @@ import type { TOntuneChartStyleType } from "../onTuneChartStyleConst";
 export class OntuneChartStyle {
     type: TOntuneChartStyleType = 'basic';
 
-    getStyle( position: TOntuneChartHtmlLegendPosition ){
+    getStyle( position: TOntuneChartHtmlLegendPosition, show?: boolean ){
         return {
             width: '0%',
             height: '0%'

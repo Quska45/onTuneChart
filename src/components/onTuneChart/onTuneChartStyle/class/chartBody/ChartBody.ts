@@ -6,8 +6,8 @@ import { ChartBodyStyleConst } from "./ChartBodyConst";
 export class ChartBody extends OntuneChartStyle {
     type: TOntuneChartStyleType = 'body';
 
-    getStyle( position: TOntuneChartHtmlLegendPosition ){
-        const style = ChartBodyStyleConst[ position ];
+    getStyle( position: TOntuneChartHtmlLegendPosition, show: boolean ){
+        const style = show ? ChartBodyStyleConst[ position ] : ChartBodyStyleConst[ `${position}_FULL` ];
 
         return {
             width: style.width,

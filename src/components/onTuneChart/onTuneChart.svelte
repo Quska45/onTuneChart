@@ -1,22 +1,59 @@
 <script lang="ts">
     import { onTuneChartStyle } from "./onTuneChartStyle/onTuneChartStyle";
-    import type { IOnTuneChartConfig } from "./onTuneChartConst";
+    import { CHART_COMPONENT_DEFAULT_VALUE, type IOnTuneChartConfig, type TEChartOption } from "./onTuneChartConst";
+    import { onMount } from "svelte";
+    import type { ResizeBar } from "./onTuneChartHtmlDomElement/ResizeBar";
+    import { ResizeBars } from "./onTuneChartHtmlDomElement";
+    import { OnTuneChart } from "./onTuneChart/onTuneChart";
 
     let isMount = false;
-
+    export let componentWidth: string;
+    export let componentHeight: string;
+    export let categories: any[];
+    export let series: any[];
+    export let eChartOption: TEChartOption = {
+        animation: false,
+        xAxis: {
+            type: 'category',
+            data: categories
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: series
+    };
     export let onTuneChartConfig: IOnTuneChartConfig = { 
-        htmlLegendPosition: 'TOP' 
+        htmlLegendPosition: CHART_COMPONENT_DEFAULT_VALUE.htmlLegendPosition,
+        showHtmlLegendPosition: CHART_COMPONENT_DEFAULT_VALUE.showHtmlLegendPosition
     };
 
-    // 차트 내부 구성 dom 전체에 대한 style
-    $: ChartStyle = onTuneChartStyle( onTuneChartConfig.htmlLegendPosition );
+    // html
+    let resizeBar: HTMLElement;
+    let chartBody: HTMLElement;
+    let legendContainer: HTMLElement;
 
+    // svelte reactive statement
+    $: componentWidth = componentWidth ? componentWidth : '100%';
+    $: componentHeight = componentHeight ? componentHeight : '100%';
+    // 차트 내부 구성 dom 전체에 대한 style
+    $: ChartStyle = onTuneChartStyle( onTuneChartConfig );
+
+    // class instance
+    let onTuneChart: OnTuneChart;
+    let resizeBarInstance: ResizeBar;
+
+    onMount(() => {
+        onTuneChart = new OnTuneChart( chartBody, eChartOption );
+
+        resizeBarInstance = new ResizeBars[ onTuneChartConfig.htmlLegendPosition ]( resizeBar, chartBody, legendContainer );
+        resizeBarInstance.resizeStart();
+    });
 </script>
 
 <!-- story book에서 height 100%가 제대로 적용되지 않는 문제가 있어 추가. 컴포넌트와는 관련 없는 dom -->
-<div style="width: 800px; height: 500px;">
+<div style="width: {componentWidth}; height: {componentHeight};">
 <div class="onTune_chart" style="flex-direction: {ChartStyle.container.flexDirection};">
-    <div class="onTune_chart_body"
+    <div bind:this="{chartBody}" class="onTune_chart_body"
         style="
             width: {ChartStyle.body.width};
             height: {ChartStyle.body.height};
@@ -24,7 +61,7 @@
     >
     </div>
 
-    <div class="onTune_chart_resize_bar" 
+    <div bind:this="{resizeBar}" class="onTune_chart_resize_bar" 
         style="
             width: {ChartStyle.resizeBar.width};
             height: {ChartStyle.resizeBar.height};
@@ -34,12 +71,13 @@
     >
     </div>
 
-    <div class="onTune_chart_legend_container"
+    <div bind:this="{legendContainer}" class="onTune_chart_legend_container"
         style="
             width: {ChartStyle.legendContainer.width};
             height: {ChartStyle.legendContainer.height};
+            display: {ChartStyle.legendContainer.display};
         "
-    >
+    >legendContainer
     </div>
 </div>
 </div>

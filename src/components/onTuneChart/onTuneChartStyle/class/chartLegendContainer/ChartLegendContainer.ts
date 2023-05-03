@@ -6,12 +6,13 @@ import { ChartLegendContainerStyleConst } from "./ChartLegendContainerConst";
 export class ChartLegendContainer extends OntuneChartStyle {
     type: TOntuneChartStyleType = 'body';
 
-    getStyle( position: TOntuneChartHtmlLegendPosition ){
+    getStyle( position: TOntuneChartHtmlLegendPosition, show?: boolean ){
         const style = ChartLegendContainerStyleConst[ position ];
 
         return {
             width: style.width,
-            height: style.height
+            height: style.height,
+            display: show ? 'block' : 'none'
         };
     };
 };

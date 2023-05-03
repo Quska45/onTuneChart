@@ -6,6 +6,8 @@ export const OntuneChartStyleConst = {
     TWENTY_PERSENT: '19%',
     THIRTY_PERSENT: '29%',
     TWO_PERSENT: '2%',
+    DISPLAY_NONE: 'none',
+    DISPLAY_BLOCK: 'block',
 };
 
 export type TOntuneChartStyleType = 'container' | 'body' | 'resizeBar' | 'legendContainer' | 'basic';
