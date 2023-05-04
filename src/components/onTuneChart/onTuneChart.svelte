@@ -33,7 +33,6 @@
         },
         series: series,
         toolbox: {
-            show: true,
             feature: {
                 saveAsImage: {}
             }

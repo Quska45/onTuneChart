@@ -1,11 +1,11 @@
 import * as echarts from 'echarts/core';
 import { LineChart } from 'echarts/charts';
-import { GridComponent } from 'echarts/components';
+import { GridComponent, ToolboxComponent } from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
 import type { TEChartOption } from '../onTuneChartConst';
 
 echarts.use(
-    [ LineChart, GridComponent, CanvasRenderer ]
+    [ LineChart, GridComponent, CanvasRenderer, ToolboxComponent ]
 );
 
 export class OnTuneChart {
