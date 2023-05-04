@@ -1,17 +1,14 @@
 import type { LineSeriesOption } from "echarts/charts";
-import type { DatasetComponentOption, GridComponentOption, TitleComponentOption, TooltipComponentOption } from "echarts/components";
+import type { DatasetComponentOption, GridComponentOption, TitleComponentOption, ToolboxComponentOption, TooltipComponentOption } from "echarts/components";
 import type { ComposeOption } from "echarts/core";
 
 export type TOntuneChartHtmlLegendPosition = 'TOP' | 'RIGHT' | 'BOTTOM' | 'LEFT';
 
-export interface IOnTuneChartConfig {
-    htmlLegendPosition: TOntuneChartHtmlLegendPosition;
-    showHtmlLegendPosition: boolean;
-};
-
 export const CHART_COMPONENT_DEFAULT_VALUE = {
     htmlLegendPosition: 'RIGHT' as TOntuneChartHtmlLegendPosition,
-    showHtmlLegendPosition: true
+    showHtmlLegendPosition: true,
+    globalLineTension: 0,
+    globalLineWidth: 1,
 };
 
 export type TEChartOption = ComposeOption<
@@ -20,6 +17,7 @@ export type TEChartOption = ComposeOption<
     | TooltipComponentOption
     | GridComponentOption
     | DatasetComponentOption
+    | ToolboxComponentOption
 > & {animation: boolean};
 
 export const LineDefaultColor = [

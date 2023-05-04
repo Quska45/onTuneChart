@@ -1,7 +1,12 @@
 function getAddZeroValue( time: number | string ){
-    if( time < 10 ){
-        time = `0 + ${time}`;
+    if( typeof time == 'string' ){
+        time = Number( time );
     };
+
+    if( time < 10 ){
+        time = '0' + time.toString();
+    };
+
     return time;
 }
 
@@ -46,10 +51,15 @@ export class TestDataMaker {
                 type: 'line',
                 showSymbol: false,
                 lineStyle: {
-                    normal: {
-                        width: 1
+                    width: globalLineWidth,
+                },
+                smooth: globalLineTension,
+                emphasis: {
+                    lineStyle: {
+                        width: globalLineWidth * 2
                     }
                 },
+
             };
 
             series.push( dataset );

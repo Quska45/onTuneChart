@@ -23,6 +23,7 @@ export class OnTuneChart {
         this.containerDom = containerDom;
         this.eChartOption = eChartOption;
         this.eChart = echarts.init( this.containerDom );
+        console.log( 'eChartOption', eChartOption );
         this.eChart.setOption( eChartOption );
     };
 };

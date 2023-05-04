@@ -38,6 +38,7 @@ const Template = ( args ) => ({
 });
 
 const testDataMaker = new TestDataMaker( 60, 20 );
+const globalLineTension = 0;
 
 // More on args: https://storybook.js.org/docs/svelte/writing-stories/args
 export const Primary = Template.bind({});
@@ -47,7 +48,8 @@ Primary.args = {
   onTuneChartConfig: {
     htmlLegendPosition: 'RIGHT',
     showHtmlLegendPosition: true,
+    globalLineTension: globalLineTension,
   },
   xAxisDatas: testDataMaker.getCategories(),
-  series: testDataMaker.getSeries( 1, 1 ),
+  series: testDataMaker.getSeries( 1, globalLineTension ),
 };
