@@ -1,5 +1,5 @@
-import onTuneChart from '../components/onTuneChart/onTuneChart.svelte';
-import { TestDataMaker } from '../components/onTuneChart/TestDataMaker';
+import onTuneChart from '../onTuneChart/onTuneChartComponent/onTuneChart.svelte';
+import { TestDataMaker } from '../onTuneChart/TestDataMaker';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 // More on argTypes: https://storybook.js.org/docs/svelte/api/argtypes
