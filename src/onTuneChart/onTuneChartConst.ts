@@ -29,7 +29,7 @@ export type TEChartOption = ComposeOption<
 > & {animation: boolean};
 
 export const LineColor = {
-    default: [
+    defaults: [
         'rgb(154, 32, 140)',
         'rgb(225, 18, 153)',
         'rgb(255, 234, 234)',
@@ -51,7 +51,7 @@ export const LineColor = {
         'rgb(148, 175, 159)',
         'rgb(219, 228, 198)'
     ],
-    embargo: [
+    embargos: [
         'rgb(0, 0, 255)', //파랑
         'rgb(255, 0, 0)', //빨갈
         'rgb(255, 255, 0)', //노랑

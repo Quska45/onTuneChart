@@ -1,6 +1,6 @@
 import * as echarts from 'echarts/core';
 import { LineChart } from 'echarts/charts';
-import { GridComponent, TitleComponent, ToolboxComponent } from 'echarts/components';
+import { GridComponent, TitleComponent, ToolboxComponent, TooltipComponent } from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
 import type { TEChartOption } from '../onTuneChartConst';
 import { OnTuneChartTitle } from './onTuneChartTitle';
@@ -12,7 +12,8 @@ echarts.use(
         GridComponent,
         CanvasRenderer,
         ToolboxComponent,
-        TitleComponent
+        TitleComponent,
+        TooltipComponent,
     ]
 );
 

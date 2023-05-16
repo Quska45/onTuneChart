@@ -11,12 +11,15 @@
     import OnTuneChartSetting from "./onTuneChartSetting/onTuneChartSetting.svelte";
     import "tailwindcss/tailwind.css";
     import OnTuneGrid from "../../onTuneGrid/OnTuneGrid.svelte";
+    import type { LineSeriesOption } from "echarts/charts";
+    import { OnTuneChartSeries } from "../onTuneChartScript/onTuneChartSeries";
+    import App from "../../App.svelte";
 
     let isMount = false;
     export let componentWidth: string;
     export let componentHeight: string;
     export let xAxisDatas: any[];
-    export let series: any[];
+    export let series: LineSeriesOption[] | undefined;
 
     // chart component props related with config
     export let onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE = { 
@@ -32,6 +35,21 @@
             text: CHART_COMPONENT_DEFAULT_VALUE.title.text,
         },
     };
+
+    // html
+    let chartContainer: HTMLElement;
+    let chartBody: HTMLElement;
+    let resizeBar: HTMLElement;
+    let legendContainer: HTMLElement;
+
+    // class instance
+    let onTuneChart: OnTuneChart;
+    let chartBodyInstance: ChartBody;
+    let resizeBarInstance: ResizeBar;
+    // let onTuneChartSeries: OnTuneChartSeries = new OnTuneChartSeries();
+
+    // global state
+    let blockerDisplayValue: string;
 
     // echarts config option
     let eChartOption: TEChartOption = {
@@ -61,36 +79,27 @@
                 formatter: `{value}`
             }
         },
-        series: series,
+        series: OnTuneChartSeries.getConditionCheckedSeries( series ),
         toolbox: {
             feature: {
                 saveAsImage: {}
             }
+        },
+        tooltip: {
+            // confine: true,
+            show: true,
+            trigger: 'axis'
         }
     };
 
     // onTuneGrid option
     let legendGridOption;
 
-    // html
-    let chartContainer: HTMLElement;
-    let chartBody: HTMLElement;
-    let resizeBar: HTMLElement;
-    let legendContainer: HTMLElement;
-
     // svelte reactive statement
     $: componentWidth = componentWidth ? componentWidth : '100%';
     $: componentHeight = componentHeight ? componentHeight : '100%';
     // 차트 내부 구성 dom 전체에 대한 style
     $: ChartStyle = onTuneChartStyle( onTuneChartConfig );
-
-    // class instance
-    let onTuneChart: OnTuneChart;
-    let chartBodyInstance: ChartBody;
-    let resizeBarInstance: ResizeBar;
-
-    // global state
-    let blockerDisplayValue: string;
     
     onMount(() => {
         onTuneChart = new OnTuneChart( chartBody, eChartOption );

@@ -2,6 +2,9 @@ export const onTuneChartColorUtil = {
     randomColorFactor() {
         return Math.floor(Math.random() * 255);
     },
+    getRandomColor(){
+        return `rgb(${this.randomColorFactor()}, ${this.randomColorFactor()}, ${this.randomColorFactor()})`;
+    },
     makeHexColor() {
         return Math.floor(Math.random() * 16777215).toString(16);;
     },
