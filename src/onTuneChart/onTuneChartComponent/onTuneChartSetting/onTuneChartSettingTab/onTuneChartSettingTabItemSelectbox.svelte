@@ -1,0 +1,77 @@
+<script lang="ts">
+    import type { CHART_COMPONENT_DEFAULT_VALUE } from "../../../onTuneChartConst";
+    import type { OnTuneChart } from "../../../onTuneChartScript/onTuneChart";
+    import type { TOnTuneChartSettingItemValue, TOnTuneChartSettingItemValues } from "../onTuneChartSettingConst";
+
+    export let id: string;
+    export let option: TOnTuneChartSettingItemValue;
+    export let onTuneChart: OnTuneChart;
+    export let onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE;
+
+    let selectbox: HTMLSelectElement;
+
+    function changeEvent( event: Event, option: TOnTuneChartSettingItemValue ){
+        const selectedIndex = selectbox.selectedIndex;
+        const selectedValue = selectbox.options[selectedIndex].value;
+        
+        option.callback( selectedValue, onTuneChartConfig, onTuneChart );
+        onTuneChartConfig = onTuneChartConfig;
+
+        return;
+    };
+    console.log('id', id);
+    console.log('onTuneChartConfig.htmlLegend.position', onTuneChartConfig.htmlLegend.position)
+</script>
+
+<div>
+    <label for="{option.KR}">{option.KR}</label>
+    <select bind:this="{selectbox}" on:change="{( e )=>{changeEvent( e, option )}}">
+        {#if id === 'htmlLegend'}
+            {#each option.options as param}
+                {#if option.id === 'position'}
+                    {#if param === onTuneChartConfig.htmlLegend.position}
+                        <option value="{param}" selected>{param}</option>
+                    {:else}
+                        <option value="{param}">{param}</option>
+                    {/if}
+                {:else if option.id === 'show'}
+                    {#if param === onTuneChartConfig.htmlLegend.show}
+                        <option value="{param}" selected>{param}</option>
+                    {:else}
+                        <option value="{param}">{param}</option>
+                    {/if}
+                {/if}
+            {/each}
+        {:else if id === 'line'}
+            {#each option.options as param}
+                {#if option.id === 'globalTension'}
+                    {#if param === onTuneChartConfig.line.globalTension}
+                        <option value="{param}" selected>{param}</option>
+                    {:else}
+                        <option value="{param}">{param}</option>
+                    {/if}
+                {:else if option.id === 'globalWidth'}
+                    {#if param === onTuneChartConfig.line.globalWidth}
+                        <option value="{param}" selected>{param}</option>
+                    {:else}
+                        <option value="{param}">{param}</option>
+                    {/if}
+                {/if}
+            {/each}
+        {:else if id === 'title'}
+            {#each option.options as param}
+                {#if option.id === 'text'}
+                    {#if param === onTuneChartConfig.title.text}
+                        <option value="{param}" selected>{param}</option>
+                    {:else}
+                        <option value="{param}">{param}</option>
+                    {/if}
+                {/if}
+            {/each}
+        {/if}
+
+        <!-- {#each option.options as param}
+            <option value="{param}">{param}</option>
+        {/each} -->
+    </select>
+</div>

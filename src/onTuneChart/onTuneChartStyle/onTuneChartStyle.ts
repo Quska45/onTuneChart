@@ -1,4 +1,4 @@
-import type { IOnTuneChartConfig } from "../onTuneChartConst";
+import type { CHART_COMPONENT_DEFAULT_VALUE } from "../onTuneChartConst";
 import { ChartBody } from "./class/chartBody/ChartBody";
 import { ChartContainer } from "./class/chartContainer/ChartContainer";
 import { ChartLegendContainer } from "./class/chartLegendContainer/ChartLegendContainer";
@@ -13,11 +13,11 @@ const chartLegendContainer = new ChartLegendContainer();
  * onTune_chart_body, onTune_chart_resize_bar, onTune_chart_legend_container 간의 스타일에 대한 getter
  * @returns 
  */
-export const onTuneChartStyle = ( onTuneChartConfig: IOnTuneChartConfig ) => {
-    const container = chartContainer.getStyle( onTuneChartConfig.htmlLegendPosition );
-    const body = chartBody.getStyle( onTuneChartConfig.htmlLegendPosition, onTuneChartConfig.showHtmlLegendPosition );
-    const resizeBar = chartResizeBar.getStyle( onTuneChartConfig.htmlLegendPosition, onTuneChartConfig.showHtmlLegendPosition );
-    const legendContainer = chartLegendContainer.getStyle( onTuneChartConfig.htmlLegendPosition, onTuneChartConfig.showHtmlLegendPosition );
+export const onTuneChartStyle = ( onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE ) => {
+    const container = chartContainer.getStyle( onTuneChartConfig.htmlLegend.position );
+    const body = chartBody.getStyle( onTuneChartConfig.htmlLegend.position, onTuneChartConfig.htmlLegend.show );
+    const resizeBar = chartResizeBar.getStyle( onTuneChartConfig.htmlLegend.position, onTuneChartConfig.htmlLegend.show );
+    const legendContainer = chartLegendContainer.getStyle( onTuneChartConfig.htmlLegend.position, onTuneChartConfig.htmlLegend.show );
 
     const resultStyles = {
         container,

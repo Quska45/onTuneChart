@@ -1,8 +1,10 @@
 <script lang="ts">
     import { beforeUpdate } from "svelte";
     import type { OnTuneChart } from "../onTuneChartScript/onTuneChart";
+    import type { CHART_COMPONENT_DEFAULT_VALUE } from "../onTuneChartConst";
 
     export let onTuneChart: OnTuneChart;
+    export let onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE;
     export let blockerDisplayValue: string;
 
     let titleText: string | undefined;
@@ -12,7 +14,7 @@
         };
 
         blockerDisplayValue == null || blockerDisplayValue == undefined ? blockerDisplayValue = 'none' : null;
-        titleText = onTuneChart.onTuneChartTitle.getText();
+        titleText = onTuneChartConfig.title.text;
     });
 
     function clickSettingButton(){

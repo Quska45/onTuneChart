@@ -1,9 +1,12 @@
 <script lang="ts">
     import { beforeUpdate } from "svelte";
-    import { CHART_COMPONENT_DEFAULT_VALUE } from "../../onTuneChartConst";
-    import OntuneChartSettingList from "./onTuneChartSettingList.svelte";
+    import type { CHART_COMPONENT_DEFAULT_VALUE } from "../../onTuneChartConst";
+    import OntuneChartSettingTab from "./onTuneChartSettingTab/onTuneChartSettingTab.svelte";
+    import type { OnTuneChart } from "../../onTuneChartScript/onTuneChart";
 
     export let displayValue: string = 'none';
+    export let onTuneChart: OnTuneChart;
+    export let onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE;
 
     function clickCloseButton(){
         displayValue == 'none' ? displayValue = 'block' : displayValue = 'none';
@@ -20,7 +23,10 @@
     </button>
 
     <div class="onTune_chart_setting_item_container">
-        <OntuneChartSettingList />
+        <OntuneChartSettingTab 
+            bind:onTuneChart
+            bind:onTuneChartConfig
+        />
     </div>
 </div>
 

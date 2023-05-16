@@ -1,41 +1,44 @@
 <script lang="ts">
     import OnTuneChartTitle from "./onTuneChartTitle.svelte";
-
     import { onTuneChartStyle } from "../onTuneChartStyle/onTuneChartStyle";
     import { CHART_COMPONENT_DEFAULT_VALUE, type TEChartOption } from "../onTuneChartConst";
-    import { onMount } from "svelte";
+    import { beforeUpdate, onMount } from "svelte";
     import type { ResizeBar } from "../onTuneChartHtmlDomElement/resizeBar/ResizeBar";
     import { ResizeBars } from "../onTuneChartHtmlDomElement/resizeBar";
     import { OnTuneChart } from "../onTuneChartScript/onTuneChart";
     import { ChartBody } from "../onTuneChartHtmlDomElement/chartBody/ChartBody";
     import OnTuneChartBlocker from "./onTuneChartBlocker.svelte";
     import OnTuneChartSetting from "./onTuneChartSetting/onTuneChartSetting.svelte";
-    import { onTuneChartConfigStore } from "../onTuneChartStore/onTuneChartStore"
+    import "tailwindcss/tailwind.css";
+    import OnTuneGrid from "../../onTuneGrid/OnTuneGrid.svelte";
 
     let isMount = false;
     export let componentWidth: string;
     export let componentHeight: string;
     export let xAxisDatas: any[];
     export let series: any[];
+
     // chart component props related with config
     export let onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE = { 
-        htmlLegendPosition: CHART_COMPONENT_DEFAULT_VALUE.htmlLegendPosition,
-        showHtmlLegendPosition: CHART_COMPONENT_DEFAULT_VALUE.showHtmlLegendPosition,
-        globalLineTension: CHART_COMPONENT_DEFAULT_VALUE.globalLineTension,
-        globalLineWidth: CHART_COMPONENT_DEFAULT_VALUE.globalLineWidth,
+        htmlLegend: {
+            position: CHART_COMPONENT_DEFAULT_VALUE.htmlLegend.position,
+            show: CHART_COMPONENT_DEFAULT_VALUE.htmlLegend.show,
+        },
+        line: {
+            globalTension: CHART_COMPONENT_DEFAULT_VALUE.line.globalTension,
+            globalWidth: CHART_COMPONENT_DEFAULT_VALUE.line.globalWidth,
+        },
         title: {
             text: CHART_COMPONENT_DEFAULT_VALUE.title.text,
-            height: CHART_COMPONENT_DEFAULT_VALUE.title.height,
         },
     };
-    $onTuneChartConfigStore = onTuneChartConfig;
 
     // echarts config option
     let eChartOption: TEChartOption = {
         title: {
-            id: 'Chart Component1',
+            id: onTuneChartConfig.title.text,
             show: false,
-            text: 'Chart Component1',
+            text: onTuneChartConfig.title.text,
             textStyle: {
                 fontSize: 18
             },
@@ -66,6 +69,9 @@
         }
     };
 
+    // onTuneGrid option
+    let legendGridOption;
+
     // html
     let chartContainer: HTMLElement;
     let chartBody: HTMLElement;
@@ -91,10 +97,15 @@
 
         chartBodyInstance = new ChartBody( chartBody, () => onTuneChart.eChart.resize() );
         
-        resizeBarInstance = new ResizeBars[ onTuneChartConfig.htmlLegendPosition ]( resizeBar, chartBody, legendContainer );
+        resizeBarInstance = new ResizeBars[ onTuneChartConfig.htmlLegend.position ]( resizeBar, chartBody, legendContainer );
         resizeBarInstance.resizeStart();
 
         isMount = true;
+    });
+
+    beforeUpdate(() => {
+        // console.log( 'onTuneChart에서 update 일어남' );
+        // console.log( 'onTuneChartConfig', onTuneChartConfig );
     });
 </script>
 
@@ -107,11 +118,14 @@
 
         <OnTuneChartTitle
             bind:onTuneChart
+            bind:onTuneChartConfig
             bind:blockerDisplayValue
         />
 
         <OnTuneChartSetting
             bind:displayValue = {blockerDisplayValue}
+            bind:onTuneChart
+            bind:onTuneChartConfig
         />
 
         <div bind:this="{chartContainer}" class="onTune_chart_container" style="flex-direction: {ChartStyle.container.flexDirection};">

@@ -46,9 +46,17 @@ Primary.args = {
   componentWidth: '800px',
   componentHeight: '500px',
   onTuneChartConfig: {
-    htmlLegendPosition: 'RIGHT',
-    showHtmlLegendPosition: true,
-    globalLineTension: globalLineTension,
+    htmlLegend: {
+      position: 'RIGHT',
+      show: true,
+    },
+    line: {
+      globalTension: globalLineTension,
+      globalWidth: 1,
+    },
+    title: {
+      text: 'Chart Component1'
+    }
   },
   xAxisDatas: testDataMaker.getCategories(),
   series: testDataMaker.getSeries( 1, globalLineTension ),
