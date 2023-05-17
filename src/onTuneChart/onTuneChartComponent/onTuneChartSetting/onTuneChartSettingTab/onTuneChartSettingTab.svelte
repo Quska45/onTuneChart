@@ -11,6 +11,7 @@
     const htmlLegends = onTuneChartSettingItemValues.htmlLegend;
     const lines = onTuneChartSettingItemValues.line;
     const titles = onTuneChartSettingItemValues.title;
+    const xAxises = onTuneChartSettingItemValues.xAxis;
 </script>
 
 <Tabs>
@@ -37,6 +38,15 @@
         id={'title'}
         title={'title'}
         options={titles}
+        onTuneChart={onTuneChart}
+        bind:onTuneChartConfig
+    />
+
+    <OnTuneChartSettingTabItem
+        tabOpen={false}
+        id={'xAxis'}
+        title={'xAxis'}
+        options={xAxises}
         onTuneChart={onTuneChart}
         bind:onTuneChartConfig
     />

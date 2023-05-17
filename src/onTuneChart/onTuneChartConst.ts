@@ -17,6 +17,9 @@ export const CHART_COMPONENT_DEFAULT_VALUE = {
     title: {
         text: 'Chart Component',
     },
+    xAxis: {
+        timeRange: 1,
+    }
 };
 
 export type TEChartOption = ComposeOption<

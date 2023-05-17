@@ -19,20 +19,18 @@
 
         return;
     };
-    console.log('id', id);
-    console.log('onTuneChartConfig.htmlLegend.position', onTuneChartConfig.htmlLegend.position)
 </script>
 
 <div>
     <label for="{option.KR}">{option.KR}</label>
     <select bind:this="{selectbox}" on:change="{( e )=>{changeEvent( e, option )}}">
         {#if id === 'htmlLegend'}
-            {#each option.options as param}
+            {#each option.options as param, i}
                 {#if option.id === 'position'}
                     {#if param === onTuneChartConfig.htmlLegend.position}
-                        <option value="{param}" selected>{param}</option>
+                        <option value="{option.optionValues[i]}" selected>{param}</option>
                     {:else}
-                        <option value="{param}">{param}</option>
+                        <option value="{option.optionValues[i]}">{param}</option>
                     {/if}
                 {:else if option.id === 'show'}
                     {#if param === onTuneChartConfig.htmlLegend.show}
@@ -42,6 +40,7 @@
                     {/if}
                 {/if}
             {/each}
+
         {:else if id === 'line'}
             {#each option.options as param}
                 {#if option.id === 'globalTension'}
@@ -58,6 +57,7 @@
                     {/if}
                 {/if}
             {/each}
+
         {:else if id === 'title'}
             {#each option.options as param}
                 {#if option.id === 'text'}
@@ -68,10 +68,16 @@
                     {/if}
                 {/if}
             {/each}
+        {:else if id === 'xAxis'}
+            {#each option.options as param, i}
+                {#if option.id === 'timeRange'}
+                    {#if option.optionValues[i] === onTuneChartConfig.xAxis.timeRange}
+                        <option value="{option.optionValues[i]}" selected>{param}</option>
+                    {:else}
+                        <option value="{option.optionValues[i]}">{param}</option>
+                    {/if}
+                {/if}
+            {/each}
         {/if}
-
-        <!-- {#each option.options as param}
-            <option value="{param}">{param}</option>
-        {/each} -->
     </select>
 </div>

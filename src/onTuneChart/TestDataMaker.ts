@@ -42,6 +42,9 @@ export class TestDataMaker {
 
     getSeries( globalLineWidth: number, globalLineTension: number ){
         const series: object[] = [];
+        const categories = [];
+        const startDate = new Date(new Date().getTime() - (this.term*1000));
+        const startTime = startDate.getTime();
 
         for( let i=0; i<this.host; ++i ){
             const data: number[] = [];
@@ -63,8 +66,22 @@ export class TestDataMaker {
             };
 
             series.push( dataset );
+            
             for( let j=0; j<this.term; ++j ){
-                dataset.data.push(parseInt((Math.random() * 10000).toString()));
+                let timeStr = '';
+                const tempDate = new Date(startTime + (j*1000));
+                const hour = getAddZeroValue( tempDate.getHours() );
+                const min = getAddZeroValue( tempDate.getMinutes() );
+                const sec = getAddZeroValue( tempDate.getSeconds() );
+                
+                timeStr = `${hour}:${min}:${sec}`;
+
+                dataset.data.push(
+                    [
+                        timeStr,
+                        parseInt((Math.random() * 10000).toString())
+                    ]
+                );
             };
         };
 

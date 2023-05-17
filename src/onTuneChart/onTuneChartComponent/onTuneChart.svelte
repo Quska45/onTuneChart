@@ -13,7 +13,6 @@
     import OnTuneGrid from "../../onTuneGrid/OnTuneGrid.svelte";
     import type { LineSeriesOption } from "echarts/charts";
     import { OnTuneChartSeries } from "../onTuneChartScript/onTuneChartSeries";
-    import App from "../../App.svelte";
 
     let isMount = false;
     export let componentWidth: string;
@@ -34,6 +33,9 @@
         title: {
             text: CHART_COMPONENT_DEFAULT_VALUE.title.text,
         },
+        xAxis: {
+            timeRange: CHART_COMPONENT_DEFAULT_VALUE.xAxis.timeRange
+        }
     };
 
     // html
@@ -51,6 +53,11 @@
     // global state
     let blockerDisplayValue: string;
 
+    console.log( 'xAxisDatas', xAxisDatas );
+    console.log( 'series', series );
+
+    var dates = ['08:40:00','08:41:00','08:42:00','08:43:00','08:44:00', '08:45:00'];
+
     // echarts config option
     let eChartOption: TEChartOption = {
         title: {
@@ -66,13 +73,18 @@
             left: 50,
             right: 50
         },
-        xAxis: {
+        xAxis: [{
             type: 'category',
-            data: xAxisDatas,
             boundaryGap: false,
-            min: xAxisDatas.length - 10,
-            max: xAxisDatas.length - 1
-        },
+            min: xAxisDatas.length - onTuneChartConfig.xAxis.timeRange,
+            max: xAxisDatas.length,
+            // axisLabel: {
+            //     interval: onTuneChartConfig.xAxis.interval,
+            //     formatter: function( value, index ){
+            //         return value;
+            //     },
+            // },
+        }],
         yAxis: {
             type: 'value',
             axisLabel: {
@@ -89,6 +101,14 @@
             // confine: true,
             show: true,
             trigger: 'axis'
+        },
+        axisPointer: {
+            type: 'line',
+            lineStyle: {
+                color: 'red',
+                width: 2,
+                type: 'solid'
+            }
         }
     };
 
