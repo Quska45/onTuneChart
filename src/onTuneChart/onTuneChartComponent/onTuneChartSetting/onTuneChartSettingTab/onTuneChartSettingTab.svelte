@@ -12,6 +12,7 @@
     const lines = onTuneChartSettingItemValues.line;
     const titles = onTuneChartSettingItemValues.title;
     const xAxises = onTuneChartSettingItemValues.xAxis;
+    const yAxises = onTuneChartSettingItemValues.yAxis;
 </script>
 
 <Tabs>
@@ -47,6 +48,15 @@
         id={'xAxis'}
         title={'xAxis'}
         options={xAxises}
+        onTuneChart={onTuneChart}
+        bind:onTuneChartConfig
+    />
+
+    <OnTuneChartSettingTabItem
+        tabOpen={false}
+        id={'yAxis'}
+        title={'yAxis'}
+        options={yAxises}
         onTuneChart={onTuneChart}
         bind:onTuneChartConfig
     />

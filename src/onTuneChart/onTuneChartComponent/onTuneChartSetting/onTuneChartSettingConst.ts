@@ -1,4 +1,4 @@
-import type { AngleAxisOption, Axis, EChartsOption, SeriesOption, SingleAxisOption, TitleOption, XAXisOption } from "echarts/types/dist/shared";
+import type { EChartsOption } from "echarts/types/dist/shared";
 import type { LineSeriesOption } from "echarts/charts";
 import { CHART_COMPONENT_DEFAULT_VALUE, OntuneChartHtmlLegendPositionConst } from "../../onTuneChartConst";
 import type { OnTuneChart } from "../../onTuneChartScript/onTuneChart";
@@ -20,6 +20,7 @@ export type TOnTuneChartSettingItemValues = {
     line: TOnTuneChartSettingItemValue[],
     title: TOnTuneChartSettingItemValue[],
     xAxis: TOnTuneChartSettingItemValue[],
+    yAxis: TOnTuneChartSettingItemValue[],
 };
 
 export const onTuneChartSettingItemValues: TOnTuneChartSettingItemValues = {
@@ -163,9 +164,9 @@ export const onTuneChartSettingItemValues: TOnTuneChartSettingItemValues = {
                         if( series === undefined ){
                             return;
                         } else if( 'length' in series ){
-                            item.min = (series[0].data as Array<any>).length - selectedValue;
+                            item.min = (series[0].data as Array<unknown>).length - selectedValue;
                         } else {
-                            item.min = (series.data as Array<any>).length - selectedValue;
+                            item.min = (series.data as Array<unknown>).length - selectedValue;
                         }
                     });
                 } else {
@@ -173,6 +174,109 @@ export const onTuneChartSettingItemValues: TOnTuneChartSettingItemValues = {
                 };
 
                 onTuneChartConfig.xAxis.timeRange = selectedValue;
+                onTuneChart.eChart.setOption( option );          
+            }
+        },
+        {
+            id: 'labelInterval',
+            KR: 'x축 라벨 interval(초)',
+            EN: 'x축 라벨 interval(초)',
+            type: 'select',
+            optionValues: ['auto', 14, 59, 299],
+            options: ['auto', 15, 60, 300],
+            arg: null,
+            callback: function( selectedValue: any, onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE, onTuneChart: OnTuneChart ){
+                const option = onTuneChart.eChart.getOption() as EChartsOption;
+                const xAxis = option.xAxis;
+                if( typeof selectedValue === 'string' && selectedValue !== 'auto' ){
+                    selectedValue = Number( selectedValue );
+                };
+                
+                if( xAxis === undefined ){
+                    return;
+                } else if( 'length' in xAxis ){
+                    xAxis.forEach(( item ) => {
+                        const axisLabel = item.axisLabel;
+                        if( axisLabel === undefined ){
+                            return;
+                        } else if( 'interval' in axisLabel ){
+                            console.log('axisLabel.interval', axisLabel.interval);
+                            axisLabel.interval = selectedValue;
+                            console.log('axisLabel.interval', axisLabel.interval);
+                        } else {
+                            console.log( '여기는 사실상 에러로 봐야할듯?' );
+                            return;
+                        };
+                    });
+                } else {
+                    const axisLabel = xAxis.axisLabel;
+                    if( axisLabel === undefined ){
+                        return;
+                    } else if( 'interval' in axisLabel ){
+                        axisLabel.interval = selectedValue;
+                    } else {
+                        console.log( '여기는 사실상 에러로 봐야할듯?' );
+                        return;
+                    };
+                };
+
+                onTuneChartConfig.xAxis.labelInterval = selectedValue;
+                onTuneChart.eChart.setOption( option );          
+            }
+        }
+    ],
+    yAxis: [
+        {
+            id: 'min',
+            KR: 'y축 최소값',
+            EN: 'y축 최소값',
+            type: 'select',
+            optionValues: [0, 100, 500, 1000, 2000, 3000, 5000, 8000, 10000],
+            options: [0, 100, 500, 1000, 2000, 3000, 5000, 8000, 10000],
+            arg: null,
+            callback: function( selectedValue: any, onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE, onTuneChart: OnTuneChart ){
+                const option = onTuneChart.eChart.getOption() as EChartsOption;
+                const yAxis = option.yAxis;
+                selectedValue = Number(selectedValue as string);
+                
+                if( yAxis === undefined ){
+                    return;
+                } else if( 'length' in yAxis ){
+                    yAxis.forEach(( item ) => {
+                        item.min = selectedValue;
+                    });
+                } else {
+                    yAxis.min = selectedValue;
+                };
+
+                onTuneChartConfig.yAxis.min = selectedValue;
+                onTuneChart.eChart.setOption( option );          
+            }
+        },
+        {
+            id: 'max',
+            KR: 'y축 최대값',
+            EN: 'y축 최대값',
+            type: 'select',
+            optionValues: [100, 500, 1000, 2000, 3000, 5000, 8000, 10000],
+            options: [100, 500, 1000, 2000, 3000, 5000, 8000, 10000],
+            arg: null,
+            callback: function( selectedValue: any, onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE, onTuneChart: OnTuneChart ){
+                const option = onTuneChart.eChart.getOption() as EChartsOption;
+                const yAxis = option.yAxis;
+                selectedValue = Number(selectedValue as string);
+                
+                if( yAxis === undefined ){
+                    return;
+                } else if( 'length' in yAxis ){
+                    yAxis.forEach(( item ) => {
+                        item.max = selectedValue;
+                    });
+                } else {
+                    yAxis.max = selectedValue;
+                };
+
+                onTuneChartConfig.yAxis.max = selectedValue;
                 onTuneChart.eChart.setOption( option );          
             }
         }

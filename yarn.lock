@@ -2984,6 +2984,13 @@
   "resolved" "https://registry.npmjs.org/@types/deep-diff/-/deep-diff-1.0.2.tgz"
   "version" "1.0.2"
 
+"@types/echarts@^4.9.17":
+  "integrity" "sha512-/G6BfkA9lwjpJIS/Av6oljzj1ub58WQJW9t7300xyRUFgoBych7uve+NbV8L1oaDS5mg4b78JYP88q+ebVJ0Wg=="
+  "resolved" "https://registry.npmjs.org/@types/echarts/-/echarts-4.9.17.tgz"
+  "version" "4.9.17"
+  dependencies:
+    "@types/zrender" "*"
+
 "@types/ejs@^3.1.1":
   "integrity" "sha512-RQul5wEfY7BjWm0sYY86cmUN/pcXWGyVxWX93DFFJvcrxax5zKlieLwA3T77xJGwNcZW0YW6CYG70p1m8xPFmA=="
   "resolved" "https://registry.npmjs.org/@types/ejs/-/ejs-3.1.1.tgz"
@@ -3282,6 +3289,11 @@
   "version" "17.0.17"
   dependencies:
     "@types/yargs-parser" "*"
+
+"@types/zrender@*":
+  "integrity" "sha512-EPI269lkHNsObwILJ1k1z7znLjKyePuWRy/XKK0shSGpBb9cIX307arcwJV4+2NeZj5wEjN06r4D8yFv7sI06g=="
+  "resolved" "https://registry.npmjs.org/@types/zrender/-/zrender-4.0.3.tgz"
+  "version" "4.0.3"
 
 "@typescript-eslint/eslint-plugin@^5.13.0", "@typescript-eslint/eslint-plugin@^5.48.1":
   "integrity" "sha512-9nY5K1Rp2ppmpb9s9S2aBiF3xo5uExCehMDmYmmFqqyxgenbHJ3qbarcLt4ITgaD6r/2ypdlcFRdcuVPnks+fQ=="
@@ -9136,7 +9148,7 @@
   "resolved" "https://registry.npmjs.org/mocker-data-generator/-/mocker-data-generator-3.0.1.tgz"
   "version" "3.0.1"
 
-"moment@^2.10.2":
+"moment@^2.10.2", "moment@^2.29.4":
   "integrity" "sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w=="
   "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.4.tgz"
   "version" "2.29.4"

@@ -13,12 +13,15 @@
     import OnTuneGrid from "../../onTuneGrid/OnTuneGrid.svelte";
     import type { LineSeriesOption } from "echarts/charts";
     import { OnTuneChartSeries } from "../onTuneChartScript/onTuneChartSeries";
+    import moment from "moment";
+    import { OnTuneChartXAxis } from "../onTuneChartScript/onTuneChartXAxis";
 
     let isMount = false;
     export let componentWidth: string;
     export let componentHeight: string;
     export let xAxisDatas: any[];
     export let series: LineSeriesOption[] | undefined;
+    export let series2: LineSeriesOption[] | undefined;
 
     // chart component props related with config
     export let onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE = { 
@@ -34,7 +37,12 @@
             text: CHART_COMPONENT_DEFAULT_VALUE.title.text,
         },
         xAxis: {
-            timeRange: CHART_COMPONENT_DEFAULT_VALUE.xAxis.timeRange
+            timeRange: CHART_COMPONENT_DEFAULT_VALUE.xAxis.timeRange,
+            labelInterval: CHART_COMPONENT_DEFAULT_VALUE.xAxis.labelInterval
+        },
+        yAxis: {
+           min: CHART_COMPONENT_DEFAULT_VALUE.yAxis.min,
+           max: CHART_COMPONENT_DEFAULT_VALUE.yAxis.max,
         }
     };
 
@@ -52,11 +60,11 @@
 
     // global state
     let blockerDisplayValue: string;
+    let seriesTerm = OnTuneChartSeries.getSeriesTerm( series );
 
     console.log( 'xAxisDatas', xAxisDatas );
     console.log( 'series', series );
-
-    var dates = ['08:40:00','08:41:00','08:42:00','08:43:00','08:44:00', '08:45:00'];
+    console.log( 'onTuneChartConfig', onTuneChartConfig );
 
     // echarts config option
     let eChartOption: TEChartOption = {
@@ -75,18 +83,29 @@
         },
         xAxis: [{
             type: 'category',
-            boundaryGap: false,
-            min: xAxisDatas.length - onTuneChartConfig.xAxis.timeRange,
-            max: xAxisDatas.length,
-            // axisLabel: {
-            //     interval: onTuneChartConfig.xAxis.interval,
-            //     formatter: function( value, index ){
-            //         return value;
-            //     },
-            // },
+            boundaryGap: true,
+            min: seriesTerm - onTuneChartConfig.xAxis.timeRange,
+            max: seriesTerm,
+            axisLabel: {
+                interval: 14,
+                formatter: function( value, index ){
+                    // console.log( 'moment(value)', moment(new Date()) );
+                    // console.log( 'moment(value).format("HH:mm:ss")', moment(new Date()).format('HH:mm:ss') );
+                    return value;
+                },
+                rotate: 90,
+                showMaxLabel: true,
+                showMinLabel: true
+            },
+            axisTick: {
+                alignWithLabel: true,
+            },
+            
         }],
         yAxis: {
             type: 'value',
+            min: onTuneChartConfig.yAxis.min,
+            max: onTuneChartConfig.yAxis.max,
             axisLabel: {
                 formatter: `{value}`
             }
@@ -94,23 +113,21 @@
         series: OnTuneChartSeries.getConditionCheckedSeries( series ),
         toolbox: {
             feature: {
-                saveAsImage: {}
-            }
+                saveAsImage: {},
+                // dataZoom: {}
+            },
         },
         tooltip: {
-            // confine: true,
             show: true,
-            trigger: 'axis'
-        },
-        axisPointer: {
-            type: 'line',
-            lineStyle: {
-                color: 'red',
-                width: 2,
-                type: 'solid'
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross'
             }
-        }
+        },
+        // dataZoom: [
+        // ]
     };
+
 
     // onTuneGrid option
     let legendGridOption;

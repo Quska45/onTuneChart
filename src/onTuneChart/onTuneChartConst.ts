@@ -1,10 +1,13 @@
 import type { LineSeriesOption } from "echarts/charts";
-import type { DatasetComponentOption, GridComponentOption, TitleComponentOption, ToolboxComponentOption, TooltipComponentOption } from "echarts/components";
+import type { DatasetComponentOption, DataZoomComponentOption, GridComponentOption, TitleComponentOption, ToolboxComponentOption, TooltipComponentOption } from "echarts/components";
 import type { ComposeOption } from "echarts/core";
+import type { InsideDataZoomOption, SliderDataZoomOption } from "echarts/types/dist/shared";
 
 export const OntuneChartHtmlLegendPositionConst =  [ 'TOP', 'RIGHT', 'BOTTOM', 'LEFT' ];
 export type TOntuneChartHtmlLegendPosition = 'TOP' | 'RIGHT' | 'BOTTOM' | 'LEFT';
 
+type TLabelInterval = number | "auto" | ((index: number, value: string) => boolean) | undefined;
+const labelInterval: TLabelInterval = 'auto';
 export const CHART_COMPONENT_DEFAULT_VALUE = {
     htmlLegend: {
         position: 'RIGHT' as TOntuneChartHtmlLegendPosition,
@@ -19,6 +22,11 @@ export const CHART_COMPONENT_DEFAULT_VALUE = {
     },
     xAxis: {
         timeRange: 1,
+        labelInterval: labelInterval,
+    },
+    yAxis: {
+        min: 0,
+        max: 100,
     }
 };
 
@@ -28,7 +36,10 @@ export type TEChartOption = ComposeOption<
     TooltipComponentOption |
     GridComponentOption |
     DatasetComponentOption |
-    ToolboxComponentOption
+    ToolboxComponentOption |
+    SliderDataZoomOption |
+    InsideDataZoomOption |
+    DataZoomComponentOption 
 > & {animation: boolean};
 
 export const LineColor = {

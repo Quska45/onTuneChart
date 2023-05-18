@@ -3,36 +3,38 @@ import { LineColor } from "../onTuneChartConst";
 import { onTuneChartColorUtil } from "../onTuneChartUtil";
 
 export const OnTuneChartSeries = {
-    getConditionCheckedSeries( series: LineSeriesOption[] | undefined ){
+    getConditionCheckedSeries( series: LineSeriesOption[] | undefined ): LineSeriesOption[]{
         if( series === undefined ){
-            return series;
+            return [];
         };
 
-        series.forEach(( item, i ) => {
-            if( item.lineStyle === undefined ){
-                item.lineStyle = {};
+        const newSeries = series.reduce(( acc, cur, i ) => {
+            if( cur.lineStyle === undefined ){
+                cur.lineStyle = {};
             };
 
             if( i < 20 ){
-                item.lineStyle.color = LineColor.defaults[ i ];
+                cur.lineStyle.color = LineColor.defaults[ i ];
             } else {
-                if( item.lineStyle === undefined ){
-                    item.lineStyle = {};
+                if( cur.lineStyle === undefined ){
+                    cur.lineStyle = {};
                 };
 
                 let newColor = onTuneChartColorUtil.getRandomColor();
                 newColor = this.getNewRgb( newColor );
-                item.lineStyle.color = newColor;
+                cur.lineStyle.color = newColor;
             };
 
-            item = this.getCheckedEmpasisSeries( item );
-        });
+            acc.push( this.getCheckedEmpasisSeries( cur ) );
 
-        return series;
+            return acc;
+        }, [] as LineSeriesOption[]);
+
+        return newSeries;
     },
 
     getCheckedEmpasisSeries( series: LineSeriesOption ): LineSeriesOption{
-        if( series == undefined ){
+        if( series === undefined ){
             return series;
         };
 
@@ -94,5 +96,23 @@ export const OnTuneChartSeries = {
         });
 
         return embargoIndex;
+    },
+
+    getSeriesTerm( series: LineSeriesOption[] | undefined ){
+        if( series === undefined ){
+            return 0;
+        };
+
+        const firstSeries = series[0];
+        if( firstSeries === undefined ){
+            return 0;
+        };
+        if( firstSeries.data === undefined ){
+            return 0;
+        };
+
+        const term = firstSeries.data.length;
+
+        return term;
     },
 };

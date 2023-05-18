@@ -1,5 +1,4 @@
 import onTuneChart from '../onTuneChart/onTuneChartComponent/onTuneChart.svelte';
-import { CHART_COMPONENT_DEFAULT_VALUE } from '../onTuneChart/onTuneChartConst';
 import { TestDataMaker } from '../onTuneChart/TestDataMaker';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -59,9 +58,15 @@ Primary.args = {
       text: 'Chart Component1'
     },
     xAxis: {
-      timeRange: 300
+      timeRange: 300,
+      labelInterval: 14    
+    },
+    yAxis: {
+      min: 0,
+      max: 100
     }
   },
   xAxisDatas: testDataMaker.getCategories(),
   series: testDataMaker.getSeries( 1, globalLineTension ),
+  series2: testDataMaker.getSeries( 1, globalLineTension ),
 };

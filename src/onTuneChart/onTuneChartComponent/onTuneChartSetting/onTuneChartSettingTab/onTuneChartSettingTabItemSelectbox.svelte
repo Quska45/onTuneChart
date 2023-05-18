@@ -77,6 +77,30 @@
                         <option value="{option.optionValues[i]}">{param}</option>
                     {/if}
                 {/if}
+                {#if option.id === 'labelInterval'}
+                    {#if option.optionValues[i] === onTuneChartConfig.xAxis.labelInterval}
+                        <option value="{option.optionValues[i]}" selected>{param}</option>
+                    {:else}
+                        <option value="{option.optionValues[i]}">{param}</option>
+                    {/if}
+                {/if}
+            {/each}
+        {:else if id === 'yAxis'}
+            {#each option.options as param, i}
+                {#if option.id === 'min'}
+                    {#if option.optionValues[i] === onTuneChartConfig.yAxis.min}
+                        <option value="{option.optionValues[i]}" selected>{param}</option>
+                    {:else}
+                        <option value="{option.optionValues[i]}">{param}</option>
+                    {/if}
+                {/if}
+                {#if option.id === 'max'}
+                    {#if option.optionValues[i] === onTuneChartConfig.yAxis.max}
+                        <option value="{option.optionValues[i]}" selected>{param}</option>
+                    {:else}
+                        <option value="{option.optionValues[i]}">{param}</option>
+                    {/if}
+                {/if}
             {/each}
         {/if}
     </select>
