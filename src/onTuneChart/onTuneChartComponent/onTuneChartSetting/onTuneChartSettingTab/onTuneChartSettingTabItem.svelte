@@ -1,6 +1,6 @@
 <script lang="ts">
     import { TabItem } from "flowbite-svelte";
-    import type { TOnTuneChartSettingItemValue, onTuneChartSettingItemValues } from "../onTuneChartSettingConst";
+    import type { TOnTuneChartSettingItemValue } from "../onTuneChartSetting/onTuneChartSettingConst";
     import type { OnTuneChart } from "../../../onTuneChartScript/onTuneChart";
     import type { CHART_COMPONENT_DEFAULT_VALUE } from "../../../onTuneChartConst";
     import OnTuneChartSettingTabItemSelectbox from "./onTuneChartSettingTabItemSelectbox.svelte"

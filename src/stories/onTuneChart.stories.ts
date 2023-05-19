@@ -63,10 +63,18 @@ Primary.args = {
     },
     yAxis: {
       min: 0,
-      max: 100
+      max: 100,
+      show: true,
+      position: 'LEFT',
+    },
+    secondYAxis: {
+      min: 0,
+      max: 100,
+      show: true,
+      position: 'RIGHT',
     }
+
   },
   xAxisDatas: testDataMaker.getCategories(),
   series: testDataMaker.getSeries( 1, globalLineTension ),
-  series2: testDataMaker.getSeries( 1, globalLineTension ),
 };

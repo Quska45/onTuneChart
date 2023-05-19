@@ -5,6 +5,7 @@ import type { InsideDataZoomOption, SliderDataZoomOption } from "echarts/types/d
 
 export const OntuneChartHtmlLegendPositionConst =  [ 'TOP', 'RIGHT', 'BOTTOM', 'LEFT' ];
 export type TOntuneChartHtmlLegendPosition = 'TOP' | 'RIGHT' | 'BOTTOM' | 'LEFT';
+export type TOntuneChartHtmlYAxisPosition = 'RIGHT' | 'LEFT';
 
 type TLabelInterval = number | "auto" | ((index: number, value: string) => boolean) | undefined;
 const labelInterval: TLabelInterval = 'auto';
@@ -27,7 +28,15 @@ export const CHART_COMPONENT_DEFAULT_VALUE = {
     yAxis: {
         min: 0,
         max: 100,
-    }
+        show: true,
+        position: 'LEFT' as TOntuneChartHtmlYAxisPosition,
+    },
+    secondYAxis: {
+        min: 0,
+        max: 100,
+        show: false,
+        position: 'RIGHT' as TOntuneChartHtmlYAxisPosition,
+    },
 };
 
 export type TEChartOption = ComposeOption<

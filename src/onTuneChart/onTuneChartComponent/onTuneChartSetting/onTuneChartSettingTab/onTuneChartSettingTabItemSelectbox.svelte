@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { CHART_COMPONENT_DEFAULT_VALUE } from "../../../onTuneChartConst";
     import type { OnTuneChart } from "../../../onTuneChartScript/onTuneChart";
-    import type { TOnTuneChartSettingItemValue, TOnTuneChartSettingItemValues } from "../onTuneChartSettingConst";
+    import type { TOnTuneChartSettingItemValue, TOnTuneChartSettingItemValues } from "../onTuneChartSetting/onTuneChartSettingConst";
 
     export let id: string;
     export let option: TOnTuneChartSettingItemValue;
@@ -96,6 +96,51 @@
                 {/if}
                 {#if option.id === 'max'}
                     {#if option.optionValues[i] === onTuneChartConfig.yAxis.max}
+                        <option value="{option.optionValues[i]}" selected>{param}</option>
+                    {:else}
+                        <option value="{option.optionValues[i]}">{param}</option>
+                    {/if}
+                {/if}
+                {#if option.id === 'show'}
+                    {#if option.optionValues[i] === onTuneChartConfig.yAxis.show}
+                        <option value="{option.optionValues[i]}" selected>{param}</option>
+                    {:else}
+                        <option value="{option.optionValues[i]}">{param}</option>
+                    {/if}
+                {/if}
+                {#if option.id === 'position'}
+                    {#if option.optionValues[i] === onTuneChartConfig.yAxis.position}
+                        <option value="{option.optionValues[i]}" selected>{param}</option>
+                    {:else}
+                        <option value="{option.optionValues[i]}">{param}</option>
+                    {/if}
+                {/if}
+            {/each}
+        {:else if id === 'secondYAxis'}
+            {#each option.options as param, i}
+                {#if option.id === 'min'}
+                    {#if option.optionValues[i] === onTuneChartConfig.secondYAxis.min}
+                        <option value="{option.optionValues[i]}" selected>{param}</option>
+                    {:else}
+                        <option value="{option.optionValues[i]}">{param}</option>
+                    {/if}
+                {/if}
+                {#if option.id === 'max'}
+                    {#if option.optionValues[i] === onTuneChartConfig.secondYAxis.max}
+                        <option value="{option.optionValues[i]}" selected>{param}</option>
+                    {:else}
+                        <option value="{option.optionValues[i]}">{param}</option>
+                    {/if}
+                {/if}
+                {#if option.id === 'show'}
+                    {#if option.optionValues[i] === onTuneChartConfig.secondYAxis.show}
+                        <option value="{option.optionValues[i]}" selected>{param}</option>
+                    {:else}
+                        <option value="{option.optionValues[i]}">{param}</option>
+                    {/if}
+                {/if}
+                {#if option.id === 'position'}
+                    {#if option.optionValues[i] === onTuneChartConfig.secondYAxis.position}
                         <option value="{option.optionValues[i]}" selected>{param}</option>
                     {:else}
                         <option value="{option.optionValues[i]}">{param}</option>

@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { CHART_COMPONENT_DEFAULT_VALUE } from "../../../onTuneChartConst";
     import type { OnTuneChart } from "../../../onTuneChartScript/onTuneChart";
-    import { onTuneChartSettingItemValues } from "../onTuneChartSettingConst";
+    import { onTuneChartSettingItemValues } from "../onTuneChartSetting/onTuneChartSettingConst";
     import { Tabs, TabItem } from 'flowbite-svelte';
     import OnTuneChartSettingTabItem from "./onTuneChartSettingTabItem.svelte";
 
@@ -13,6 +13,7 @@
     const titles = onTuneChartSettingItemValues.title;
     const xAxises = onTuneChartSettingItemValues.xAxis;
     const yAxises = onTuneChartSettingItemValues.yAxis;
+    const secondYAxises = onTuneChartSettingItemValues.secondYAxis;
 </script>
 
 <Tabs>
@@ -57,6 +58,15 @@
         id={'yAxis'}
         title={'yAxis'}
         options={yAxises}
+        onTuneChart={onTuneChart}
+        bind:onTuneChartConfig
+    />
+
+    <OnTuneChartSettingTabItem
+        tabOpen={false}
+        id={'secondYAxis'}
+        title={'secondYAxis'}
+        options={secondYAxises}
         onTuneChart={onTuneChart}
         bind:onTuneChartConfig
     />

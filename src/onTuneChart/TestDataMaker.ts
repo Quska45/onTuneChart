@@ -62,7 +62,7 @@ export class TestDataMaker {
                         width: globalLineWidth * 2
                     }
                 },
-
+                yAxisIndex: i % 2 == 1 ? 0 : 1
             };
 
             series.push( dataset );

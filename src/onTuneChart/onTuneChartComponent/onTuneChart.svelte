@@ -15,13 +15,13 @@
     import { OnTuneChartSeries } from "../onTuneChartScript/onTuneChartSeries";
     import moment from "moment";
     import { OnTuneChartXAxis } from "../onTuneChartScript/onTuneChartXAxis";
+    import { EChartOptionMaker } from "../eChartOptionMaker";
 
     let isMount = false;
     export let componentWidth: string;
     export let componentHeight: string;
     export let xAxisDatas: any[];
     export let series: LineSeriesOption[] | undefined;
-    export let series2: LineSeriesOption[] | undefined;
 
     // chart component props related with config
     export let onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE = { 
@@ -38,12 +38,20 @@
         },
         xAxis: {
             timeRange: CHART_COMPONENT_DEFAULT_VALUE.xAxis.timeRange,
-            labelInterval: CHART_COMPONENT_DEFAULT_VALUE.xAxis.labelInterval
+            labelInterval: CHART_COMPONENT_DEFAULT_VALUE.xAxis.labelInterval,
         },
         yAxis: {
            min: CHART_COMPONENT_DEFAULT_VALUE.yAxis.min,
            max: CHART_COMPONENT_DEFAULT_VALUE.yAxis.max,
-        }
+           show: CHART_COMPONENT_DEFAULT_VALUE.yAxis.show,
+           position: CHART_COMPONENT_DEFAULT_VALUE.yAxis.position,
+        },
+        secondYAxis: {
+            min: CHART_COMPONENT_DEFAULT_VALUE.secondYAxis.min,
+            max: CHART_COMPONENT_DEFAULT_VALUE.secondYAxis.max,
+            show: CHART_COMPONENT_DEFAULT_VALUE.secondYAxis.show,
+            position: CHART_COMPONENT_DEFAULT_VALUE.secondYAxis.position,
+        },
     };
 
     // html
@@ -56,6 +64,7 @@
     let onTuneChart: OnTuneChart;
     let chartBodyInstance: ChartBody;
     let resizeBarInstance: ResizeBar;
+    let echartOptionMaker: EChartOptionMaker = new EChartOptionMaker();
     // let onTuneChartSeries: OnTuneChartSeries = new OnTuneChartSeries();
 
     // global state
@@ -81,35 +90,59 @@
             left: 50,
             right: 50
         },
-        xAxis: [{
-            type: 'category',
-            boundaryGap: true,
-            min: seriesTerm - onTuneChartConfig.xAxis.timeRange,
-            max: seriesTerm,
-            axisLabel: {
-                interval: 14,
-                formatter: function( value, index ){
-                    // console.log( 'moment(value)', moment(new Date()) );
-                    // console.log( 'moment(value).format("HH:mm:ss")', moment(new Date()).format('HH:mm:ss') );
-                    return value;
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: true,
+                min: seriesTerm - onTuneChartConfig.xAxis.timeRange,
+                max: seriesTerm,
+                axisLabel: {
+                    interval: 14,
+                    formatter: function( value, index ){
+                        // console.log( 'moment(value)', moment(new Date()) );
+                        // console.log( 'moment(value).format("HH:mm:ss")', moment(new Date()).format('HH:mm:ss') );
+                        return value;
+                    },
+                    rotate: 90,
+                    showMaxLabel: true,
+                    showMinLabel: true
                 },
-                rotate: 90,
-                showMaxLabel: true,
-                showMinLabel: true
-            },
-            axisTick: {
-                alignWithLabel: true,
-            },
-            
-        }],
-        yAxis: {
-            type: 'value',
-            min: onTuneChartConfig.yAxis.min,
-            max: onTuneChartConfig.yAxis.max,
-            axisLabel: {
-                formatter: `{value}`
+                axisTick: {
+                    alignWithLabel: true,
+                },
             }
-        },
+        ],
+        yAxis: [
+            {
+                id: 'yAxis',
+                type: 'value',
+                show: onTuneChartConfig.yAxis.show,
+                min: onTuneChartConfig.yAxis.min,
+                max: onTuneChartConfig.yAxis.max,
+                position: echartOptionMaker.getYAxisPosition( onTuneChartConfig.yAxis.position ),
+                axisLabel: {
+                    formatter: ( value ) => {
+                        if( typeof value !== 'number' ){
+                            return '{value}'
+                        };
+
+                        const result = value <= 100 ? value : `${value / 100}K`;
+                        return result;
+                    }
+                }
+            },
+            {
+                id: 'secondYAxis',
+                type: 'value',
+                show: onTuneChartConfig.secondYAxis.show,
+                min: onTuneChartConfig.secondYAxis.min,
+                max: onTuneChartConfig.secondYAxis.max,
+                position: echartOptionMaker.getYAxisPosition( onTuneChartConfig.secondYAxis.position ),
+                axisLabel: {
+                    formatter: `{value}`
+                }
+            }
+        ],
         series: OnTuneChartSeries.getConditionCheckedSeries( series ),
         toolbox: {
             feature: {
