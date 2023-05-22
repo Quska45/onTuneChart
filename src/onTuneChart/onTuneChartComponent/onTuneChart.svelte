@@ -120,14 +120,20 @@
                 min: onTuneChartConfig.yAxis.min,
                 max: onTuneChartConfig.yAxis.max,
                 position: echartOptionMaker.getYAxisPosition( onTuneChartConfig.yAxis.position ),
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        type: 'dashed'
+                    },
+                },
                 axisLabel: {
-                    formatter: ( value ) => {
+                    formatter: ( value: number ) => {
                         if( typeof value !== 'number' ){
                             return '{value}'
                         };
 
                         const result = value <= 100 ? value : `${value / 100}K`;
-                        return result;
+                        return result.toString();
                     }
                 }
             },
@@ -173,6 +179,17 @@
     
     onMount(() => {
         onTuneChart = new OnTuneChart( chartBody, eChartOption );
+        onTuneChart.addIndicator();
+
+        const option = onTuneChart.eChart.getOption();
+        console.log('onTuneChart.eChart.getOption()', onTuneChart.eChart.getOption());
+        if( 'xAxis' in option ){
+            console.log('option.xAxis', option.xAxis);
+        };
+
+        if( 'yAxis' in option ){
+            console.log('option.yAxis', option.yAxis);
+        };
 
         chartBodyInstance = new ChartBody( chartBody, () => onTuneChart.eChart.resize() );
         

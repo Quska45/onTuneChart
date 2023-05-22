@@ -37,7 +37,7 @@ const Template = ( args ) => ({
   },
 });
 
-const testDataMaker = new TestDataMaker( 3600, 20 );
+const testDataMaker = new TestDataMaker( 3600, 5 );
 const globalLineTension = 0;
 
 // More on args: https://storybook.js.org/docs/svelte/writing-stories/args

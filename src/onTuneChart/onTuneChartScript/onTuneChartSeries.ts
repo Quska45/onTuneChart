@@ -12,17 +12,18 @@ export const OnTuneChartSeries = {
             if( cur.lineStyle === undefined ){
                 cur.lineStyle = {};
             };
+            if( cur.itemStyle === undefined ){
+                cur.itemStyle = {};
+            }
 
             if( i < 20 ){
                 cur.lineStyle.color = LineColor.defaults[ i ];
+                cur.itemStyle.color = LineColor.defaults[ i ];
             } else {
-                if( cur.lineStyle === undefined ){
-                    cur.lineStyle = {};
-                };
-
                 let newColor = onTuneChartColorUtil.getRandomColor();
                 newColor = this.getNewRgb( newColor );
                 cur.lineStyle.color = newColor;
+                cur.itemStyle.color = newColor;
             };
 
             acc.push( this.getCheckedEmpasisSeries( cur ) );

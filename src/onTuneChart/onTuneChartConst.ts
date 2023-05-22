@@ -1,7 +1,7 @@
 import type { LineSeriesOption } from "echarts/charts";
-import type { DatasetComponentOption, DataZoomComponentOption, GridComponentOption, TitleComponentOption, ToolboxComponentOption, TooltipComponentOption } from "echarts/components";
+import type { DatasetComponentOption, DataZoomComponentOption, GraphicComponentOption, GridComponentOption, MarkLineComponentOption, TitleComponentOption, ToolboxComponentOption, TooltipComponentOption } from "echarts/components";
 import type { ComposeOption } from "echarts/core";
-import type { InsideDataZoomOption, SliderDataZoomOption } from "echarts/types/dist/shared";
+import type { InsideDataZoomOption, MarkPointOption, SliderDataZoomOption } from "echarts/types/dist/shared";
 
 export const OntuneChartHtmlLegendPositionConst =  [ 'TOP', 'RIGHT', 'BOTTOM', 'LEFT' ];
 export type TOntuneChartHtmlLegendPosition = 'TOP' | 'RIGHT' | 'BOTTOM' | 'LEFT';
@@ -48,7 +48,11 @@ export type TEChartOption = ComposeOption<
     ToolboxComponentOption |
     SliderDataZoomOption |
     InsideDataZoomOption |
-    DataZoomComponentOption 
+    DataZoomComponentOption |
+    MarkPointOption |
+    MarkLineComponentOption |
+    GraphicComponentOption
+    
 > & {animation: boolean};
 
 export const LineColor = {
