@@ -2,7 +2,7 @@ import type { EChartsOption } from "echarts/types/dist/shared";
 import type { LineSeriesOption } from "echarts/charts";
 import { CHART_COMPONENT_DEFAULT_VALUE, OntuneChartHtmlLegendPositionConst } from "../../../onTuneChartConst";
 import type { OnTuneChart } from "../../../onTuneChartScript/onTuneChart";
-import { OnTuneChartSeries } from "../../../onTuneChartScript/onTuneChartSeries";
+import { OnTuneChartSeries2 } from "../../../onTuneChartScript/onTuneChartSeries";
 
 export type TOnTuneChartSettingItemValue = {
     id: string,
@@ -109,7 +109,7 @@ export const onTuneChartSettingItemValues: TOnTuneChartSettingItemValues = {
                     (series as LineSeriesOption[]).forEach(( item ) => {
                         if( item.lineStyle !== undefined ){
                             item.lineStyle.width = selectedValue;
-                            item = OnTuneChartSeries.getCheckedEmpasisSeries( item );
+                            item = OnTuneChartSeries2.getCheckedEmpasisSeries( item );
                         };
                     });
                 } else {

@@ -6,6 +6,9 @@ import type { TEChartOption } from '../onTuneChartConst';
 import { OnTuneChartTitle } from './onTuneChartTitle';
 import type { EChartsOption, GridOption } from 'echarts/types/dist/shared';
 import { EChartOptionGrid } from '../eChartOption/eChartOptionGrid';
+import { OnTuneChartXAxis } from './onTuneChartAxis/onTuneChartXAxis/onTuneChartXAxis';
+import { OnTuneChartYAxis } from './onTuneChartAxis/onTuneChartYAxis/onTuneChartYAxis';
+import { OnTuneChartSeries } from './onTuneChartSeries/onTuneChartSeries';
 
 echarts.use(
     [
@@ -33,6 +36,12 @@ export class OnTuneChart {
 
     onTuneChartTitle: OnTuneChartTitle;
 
+    onTuneChartXAxis: OnTuneChartXAxis;
+
+    onTuneChartYAxis: OnTuneChartYAxis;
+
+    onTuneChartSeries: OnTuneChartSeries;
+
     constructor( containerDom: HTMLElement, eChartOption: TEChartOption ){
         this.containerDom = containerDom;
         this.eChartOption = eChartOption;
@@ -41,6 +50,30 @@ export class OnTuneChart {
 
         const title = OnTuneChartTitle.getTitle( (this.eChart.getOption() as EChartsOption).title );
         this.onTuneChartTitle = new OnTuneChartTitle( title );
+
+        this.onTuneChartXAxis = new OnTuneChartXAxis();
+        this.onTuneChartYAxis = new OnTuneChartYAxis();
+        this.onTuneChartSeries = new OnTuneChartSeries();
+    };
+
+    addAodMaxTooltip(){
+        const onTuneChartXAxis = this.onTuneChartXAxis.getAxisOptionInstance( this );
+        const onTuneChartYAxis = this.onTuneChartYAxis.getAxisOptionInstance( this );
+        const onTuneChartSeries = this.onTuneChartSeries.getOnTuneSeries( this );
+
+        const xAxisMin = onTuneChartXAxis.getMin();
+        const xAxisMax = onTuneChartXAxis.getMax();
+        const yAxisMin = onTuneChartYAxis.getMin();
+        const yAxisMax = onTuneChartYAxis.getMax();
+        const series = onTuneChartSeries.getSeries();
+
+        console.log('onTuneChartXAxis', onTuneChartXAxis);
+        console.log('onTuneChartYAxis', onTuneChartYAxis);
+        console.log('xAxisMin', xAxisMin);
+        console.log('xAxisMax', xAxisMax);
+        console.log('yAxisMin', yAxisMin);
+        console.log('yAxisMax', yAxisMax);
+        console.log('series', series);
     };
 
     addIndicator(){

@@ -14,7 +14,7 @@
     import type { LineSeriesOption } from "echarts/charts";
     import { OnTuneChartSeries } from "../onTuneChartScript/onTuneChartSeries";
     import moment from "moment";
-    import { OnTuneChartXAxis } from "../onTuneChartScript/onTuneChartXAxis";
+    import { OnTuneChartXAxis } from "../onTuneChartScript/onTuneChartAxis/onTuneChartXAxis/onTuneChartXAxis";
     import { EChartOptionMaker } from "../eChartOptionMaker";
 
     let isMount = false;
@@ -161,7 +161,7 @@
             trigger: 'axis',
             axisPointer: {
                 type: 'cross'
-            }
+            },
         },
         // dataZoom: [
         // ]
@@ -180,16 +180,7 @@
     onMount(() => {
         onTuneChart = new OnTuneChart( chartBody, eChartOption );
         onTuneChart.addIndicator();
-
-        const option = onTuneChart.eChart.getOption();
-        console.log('onTuneChart.eChart.getOption()', onTuneChart.eChart.getOption());
-        if( 'xAxis' in option ){
-            console.log('option.xAxis', option.xAxis);
-        };
-
-        if( 'yAxis' in option ){
-            console.log('option.yAxis', option.yAxis);
-        };
+        onTuneChart.addAodMaxTooltip();
 
         chartBodyInstance = new ChartBody( chartBody, () => onTuneChart.eChart.resize() );
         

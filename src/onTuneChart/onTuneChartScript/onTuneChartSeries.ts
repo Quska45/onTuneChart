@@ -2,7 +2,7 @@ import type { LineSeriesOption } from "echarts/charts";
 import { LineColor } from "../onTuneChartConst";
 import { onTuneChartColorUtil } from "../onTuneChartUtil";
 
-export const OnTuneChartSeries = {
+export const OnTuneChartSeries2 = {
     getConditionCheckedSeries( series: LineSeriesOption[] | undefined ): LineSeriesOption[]{
         if( series === undefined ){
             return [];
