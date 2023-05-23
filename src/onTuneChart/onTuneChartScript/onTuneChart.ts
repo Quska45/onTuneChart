@@ -1,8 +1,8 @@
 import * as echarts from 'echarts/core';
 import { LineChart } from 'echarts/charts';
-import { GraphicComponent, GridComponent, MarkLineComponent, MarkPointComponent, TitleComponent, ToolboxComponent, TooltipComponent } from 'echarts/components';
+import { GraphicComponent, GridComponent, MarkPointComponent, TitleComponent, ToolboxComponent, TooltipComponent } from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
-import type { TEChartOption } from '../onTuneChartConst';
+import type { TAodMaxTooltipPosition, TEChartOption } from '../onTuneChartConst';
 import { OnTuneChartTitle } from './onTuneChartTitle';
 import type { EChartsOption, GridOption } from 'echarts/types/dist/shared';
 import { EChartOptionGrid } from '../eChartOption/eChartOptionGrid';
@@ -19,8 +19,7 @@ echarts.use(
         TitleComponent,
         TooltipComponent,
         MarkPointComponent,
-        MarkLineComponent,
-        GraphicComponent
+        GraphicComponent,
     ]
 );
 
@@ -56,7 +55,7 @@ export class OnTuneChart {
         this.onTuneChartSeries = new OnTuneChartSeries();
     };
 
-    addAodMaxTooltip(){
+    addAodMaxTooltip( aodMaxTooltipPosition: TAodMaxTooltipPosition ){
         const onTuneChartXAxis = this.onTuneChartXAxis.getAxisOptionInstance( this );
         const onTuneChartYAxis = this.onTuneChartYAxis.getAxisOptionInstance( this );
         const onTuneChartSeries = this.onTuneChartSeries.getOnTuneSeries( this );
@@ -65,15 +64,20 @@ export class OnTuneChart {
         const xAxisMax = onTuneChartXAxis.getMax();
         const yAxisMin = onTuneChartYAxis.getMin();
         const yAxisMax = onTuneChartYAxis.getMax();
-        const series = onTuneChartSeries.getSeries();
 
-        console.log('onTuneChartXAxis', onTuneChartXAxis);
-        console.log('onTuneChartYAxis', onTuneChartYAxis);
-        console.log('xAxisMin', xAxisMin);
-        console.log('xAxisMax', xAxisMax);
-        console.log('yAxisMin', yAxisMin);
-        console.log('yAxisMax', yAxisMax);
-        console.log('series', series);
+        const XYAxisMinMax = {
+            xAxisMin: xAxisMin,
+            xAxisMax: xAxisMax,
+            yAxisMin: yAxisMin,
+            yAxisMax: yAxisMax,
+        };
+
+        const xyAxisMinMax = onTuneChartSeries.getSeriesMaxValueArr( XYAxisMinMax );
+        const markedSeries = onTuneChartSeries.getMarkedSeries( xyAxisMinMax, aodMaxTooltipPosition );
+
+        const option = this.eChart.getOption();
+        option.series = markedSeries;
+        this.eChart.setOption( option );
     };
 
     addIndicator(){
@@ -111,8 +115,6 @@ export class OnTuneChart {
                     }
                 ]
             });
-            console.log( 'eChart.getOption()', eChart.getOption() );
-            console.log( 'params', params );
 
             // 수직선 제거 기능
             const removeLine = function() {

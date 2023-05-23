@@ -1,6 +1,6 @@
 import type { SeriesOption } from "echarts/types/dist/shared";
 import type { TSeriesType } from "./onTuneChartSeries";
-import type { ISeriesBasic } from "./seriesBasic";
+import type { ISeriesBasic, XYAxisMinMax } from "./seriesBasic";
 
 export class SeriesUndefined implements ISeriesBasic {
     series: undefined;
@@ -13,6 +13,14 @@ export class SeriesUndefined implements ISeriesBasic {
     };
 
     getSeries(){
+        return this.series;
+    };
+
+    getSeriesMaxValueArr( xyAxisMinMax: XYAxisMinMax ){
         return [];
+    };
+
+    getMarkedSeries(){
+        return this.series;
     };
 }

@@ -1,17 +1,19 @@
 import type { SeriesOption } from "echarts/types/dist/shared";
 import { SeriesMaker } from ".";
+import type { TEChartOption } from "../../onTuneChartConst";
 import type { OnTuneChart } from "../onTuneChart";
+import type { ISeriesBasic } from "./seriesBasic";
 import { SeriesError } from "./seriesError";
 
 export type TSeriesType = 'SeriesUndefined' | 'Serieses' | 'Series' | 'SeriesError';
 
 export class OnTuneChartSeries {
     getOnTuneSeries( onTuneChart: OnTuneChart ){
-        const option = onTuneChart.eChart.getOption();
-        let series: SeriesOption | SeriesOption[] | undefined;
+        const option = onTuneChart.eChart.getOption() as TEChartOption;
+        const series = option.series;
 
         if( 'series' in option ){
-            series = option.series as SeriesOption | SeriesOption[] | undefined;
+            // series = option.series as SeriesOption | SeriesOption[] | undefined;
 
             const seriesType = this.getOnTuneSeriesType( series );
             const onTuneSeries = new SeriesMaker[ seriesType ]( series );
@@ -20,6 +22,10 @@ export class OnTuneChartSeries {
         };
 
         return new SeriesError( series );
+    };
+
+    getDataBySeriesAndDataIndex( seriesBasic: ISeriesBasic, seriesIndex: number, dataIndex: number ){
+        
     };
 
     getOnTuneSeriesType( series: SeriesOption | SeriesOption[] | undefined ){

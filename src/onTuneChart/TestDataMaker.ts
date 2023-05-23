@@ -62,10 +62,10 @@ export class TestDataMaker {
                         width: globalLineWidth * 2
                     }
                 },
+                markPoint: {
+                },
                 yAxisIndex: i % 2 == 1 ? 0 : 1
             };
-
-            series.push( dataset );
             
             for( let j=0; j<this.term; ++j ){
                 let timeStr = '';
@@ -76,13 +76,16 @@ export class TestDataMaker {
                 
                 timeStr = `${hour}:${min}:${sec}`;
 
+                const newValue = parseInt((Math.random() * 5000).toString());
                 dataset.data.push(
                     [
                         timeStr,
-                        parseInt((Math.random() * 10000).toString())
+                        newValue
                     ]
                 );
             };
+
+            series.push( dataset );
         };
 
         return series;

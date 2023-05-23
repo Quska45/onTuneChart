@@ -58,20 +58,23 @@ Primary.args = {
       text: 'Chart Component1'
     },
     xAxis: {
-      timeRange: 300,
-      labelInterval: 14    
+      timeRange: 3599,
+      labelInterval: 'auto'  
     },
     yAxis: {
       min: 0,
-      max: 100,
+      max: 10000,
       show: true,
       position: 'LEFT',
     },
     secondYAxis: {
       min: 0,
-      max: 100,
+      max: 10000,
       show: true,
       position: 'RIGHT',
+    },
+    aodMaxTooltip: {
+      position: 'last'
     }
 
   },

@@ -12,7 +12,7 @@
     import "tailwindcss/tailwind.css";
     import OnTuneGrid from "../../onTuneGrid/OnTuneGrid.svelte";
     import type { LineSeriesOption } from "echarts/charts";
-    import { OnTuneChartSeries } from "../onTuneChartScript/onTuneChartSeries";
+    import { OnTuneChartSeries2 } from "../onTuneChartScript/onTuneChartSeries2";
     import moment from "moment";
     import { OnTuneChartXAxis } from "../onTuneChartScript/onTuneChartAxis/onTuneChartXAxis/onTuneChartXAxis";
     import { EChartOptionMaker } from "../eChartOptionMaker";
@@ -52,6 +52,9 @@
             show: CHART_COMPONENT_DEFAULT_VALUE.secondYAxis.show,
             position: CHART_COMPONENT_DEFAULT_VALUE.secondYAxis.position,
         },
+        aodMaxTooltip: {
+            position: CHART_COMPONENT_DEFAULT_VALUE.aodMaxTooltip.position,
+        }
     };
 
     // html
@@ -69,7 +72,7 @@
 
     // global state
     let blockerDisplayValue: string;
-    let seriesTerm = OnTuneChartSeries.getSeriesTerm( series );
+    let seriesTerm = OnTuneChartSeries2.getSeriesTerm( series );
 
     console.log( 'xAxisDatas', xAxisDatas );
     console.log( 'series', series );
@@ -97,13 +100,13 @@
                 min: seriesTerm - onTuneChartConfig.xAxis.timeRange,
                 max: seriesTerm,
                 axisLabel: {
-                    interval: 14,
+                    interval: onTuneChartConfig.xAxis.labelInterval,
                     formatter: function( value, index ){
                         // console.log( 'moment(value)', moment(new Date()) );
                         // console.log( 'moment(value).format("HH:mm:ss")', moment(new Date()).format('HH:mm:ss') );
                         return value;
                     },
-                    rotate: 90,
+                    // rotate: 90,
                     showMaxLabel: true,
                     showMinLabel: true
                 },
@@ -132,7 +135,7 @@
                             return '{value}'
                         };
 
-                        const result = value <= 100 ? value : `${value / 100}K`;
+                        const result = value <= 1000 ? value : `${value / 1000}K`;
                         return result.toString();
                     }
                 }
@@ -149,7 +152,7 @@
                 }
             }
         ],
-        series: OnTuneChartSeries.getConditionCheckedSeries( series ),
+        series: OnTuneChartSeries2.getConditionCheckedSeries( series ),
         toolbox: {
             feature: {
                 saveAsImage: {},
@@ -180,7 +183,7 @@
     onMount(() => {
         onTuneChart = new OnTuneChart( chartBody, eChartOption );
         onTuneChart.addIndicator();
-        onTuneChart.addAodMaxTooltip();
+        onTuneChart.addAodMaxTooltip( onTuneChartConfig.aodMaxTooltip.position );
 
         chartBodyInstance = new ChartBody( chartBody, () => onTuneChart.eChart.resize() );
         

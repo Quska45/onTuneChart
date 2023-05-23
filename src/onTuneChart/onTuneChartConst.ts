@@ -1,5 +1,5 @@
 import type { LineSeriesOption } from "echarts/charts";
-import type { DatasetComponentOption, DataZoomComponentOption, GraphicComponentOption, GridComponentOption, MarkLineComponentOption, TitleComponentOption, ToolboxComponentOption, TooltipComponentOption } from "echarts/components";
+import type { DatasetComponentOption, DataZoomComponentOption, GraphicComponentOption, GridComponentOption, MarkPointComponentOption, TitleComponentOption, ToolboxComponentOption, TooltipComponentOption } from "echarts/components";
 import type { ComposeOption } from "echarts/core";
 import type { InsideDataZoomOption, MarkPointOption, SliderDataZoomOption } from "echarts/types/dist/shared";
 
@@ -8,6 +8,7 @@ export type TOntuneChartHtmlLegendPosition = 'TOP' | 'RIGHT' | 'BOTTOM' | 'LEFT'
 export type TOntuneChartHtmlYAxisPosition = 'RIGHT' | 'LEFT';
 
 type TLabelInterval = number | "auto" | ((index: number, value: string) => boolean) | undefined;
+export type TAodMaxTooltipPosition = 'first' | 'middle' | 'last';
 const labelInterval: TLabelInterval = 'auto';
 export const CHART_COMPONENT_DEFAULT_VALUE = {
     htmlLegend: {
@@ -37,6 +38,9 @@ export const CHART_COMPONENT_DEFAULT_VALUE = {
         show: false,
         position: 'RIGHT' as TOntuneChartHtmlYAxisPosition,
     },
+    aodMaxTooltip: {
+        position: 'last' as TAodMaxTooltipPosition,
+    }
 };
 
 export type TEChartOption = ComposeOption<
@@ -50,7 +54,7 @@ export type TEChartOption = ComposeOption<
     InsideDataZoomOption |
     DataZoomComponentOption |
     MarkPointOption |
-    MarkLineComponentOption |
+    MarkPointComponentOption |
     GraphicComponentOption
     
 > & {animation: boolean};

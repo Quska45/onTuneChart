@@ -2,7 +2,7 @@ import type { EChartsOption } from "echarts/types/dist/shared";
 import type { LineSeriesOption } from "echarts/charts";
 import { CHART_COMPONENT_DEFAULT_VALUE, OntuneChartHtmlLegendPositionConst } from "../../../onTuneChartConst";
 import type { OnTuneChart } from "../../../onTuneChartScript/onTuneChart";
-import { OnTuneChartSeries2 } from "../../../onTuneChartScript/onTuneChartSeries";
+import { OnTuneChartSeries2 } from "../../../onTuneChartScript/onTuneChartSeries2";
 
 export type TOnTuneChartSettingItemValue = {
     id: string,
@@ -155,7 +155,7 @@ export const onTuneChartSettingItemValues: TOnTuneChartSettingItemValues = {
             KR: 'x축 시간 데이터 범위(분)',
             EN: 'x축 시간 데이터 범위(분)',
             type: 'select',
-            optionValues: [60, 300, 600, 1800, 3600],
+            optionValues: [60, 300, 600, 1800, 3599],
             options: [1, 5, 10, 30, 60],
             arg: null,
             callback: function( selectedValue: any, onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE, onTuneChart: OnTuneChart ){
