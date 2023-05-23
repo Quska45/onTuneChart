@@ -50,18 +50,27 @@ export class Serieses implements ISeriesBasic {
         return seriesMaxValueArr;
     };
 
-    getMarkedSeries( seriesMaxValueArr: TSeriesMaxValue[], aodMaxTooltipPosition: TAodMaxTooltipPosition ){
+    getSeriesMaxValue( seriesMaxValueArr: TSeriesMaxValue[], aodMaxTooltipPosition: TAodMaxTooltipPosition ){
         let seriesMaxValueIndex: number;
         if( aodMaxTooltipPosition == 'last' ){
             seriesMaxValueIndex = seriesMaxValueArr.length - 1;
         } else if ( aodMaxTooltipPosition == 'middle' ){
-            seriesMaxValueIndex = ( seriesMaxValueArr.length - 1 ) / 2;
+            seriesMaxValueIndex = Math.floor(( seriesMaxValueArr.length - 1 ) / 2);
         } else {
             seriesMaxValueIndex = 0;
         };
         
         const seriesMaxValue = seriesMaxValueArr[ seriesMaxValueIndex ];
+
+        return seriesMaxValue;
+    };
+
+    getMarkedSeries( seriesMaxValue: TSeriesMaxValue ){
         const maxValueSeries = this.series[ seriesMaxValue.maxSeriesIndex ];
+
+        this.series.forEach(( cur, i ) => {
+            cur.markPoint = {};
+        });
 
         maxValueSeries.markPoint = {
             data: [{

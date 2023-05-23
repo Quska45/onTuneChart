@@ -14,6 +14,7 @@
     const xAxises = onTuneChartSettingItemValues.xAxis;
     const yAxises = onTuneChartSettingItemValues.yAxis;
     const secondYAxises = onTuneChartSettingItemValues.secondYAxis;
+    const aodMaxTooltip = onTuneChartSettingItemValues.aodMaxTooltip;
 </script>
 
 <Tabs>
@@ -67,6 +68,15 @@
         id={'secondYAxis'}
         title={'secondYAxis'}
         options={secondYAxises}
+        onTuneChart={onTuneChart}
+        bind:onTuneChartConfig
+    />
+
+    <OnTuneChartSettingTabItem
+        tabOpen={false}
+        id={'aodMaxTooltip'}
+        title={'aodMaxTooltip'}
+        options={aodMaxTooltip}
         onTuneChart={onTuneChart}
         bind:onTuneChartConfig
     />

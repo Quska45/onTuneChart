@@ -22,5 +22,6 @@ export interface ISeriesBasic {
 
     getSeries: () => SeriesOption[] | SeriesOption | undefined;
     getSeriesMaxValueArr: ( xyAxisMinMax: XYAxisMinMax ) => TSeriesMaxValue[];
-    getMarkedSeries: ( seriesMaxValueArr: TSeriesMaxValue[], aodMaxTooltipPosition: TAodMaxTooltipPosition ) => SeriesOption[] | SeriesOption | undefined;
+    getSeriesMaxValue: ( seriesMaxValueArr: TSeriesMaxValue[], aodMaxTooltipPosition: TAodMaxTooltipPosition ) => TSeriesMaxValue;
+    getMarkedSeries: ( seriesMaxValue: TSeriesMaxValue ) => SeriesOption[] | SeriesOption | undefined;
 };

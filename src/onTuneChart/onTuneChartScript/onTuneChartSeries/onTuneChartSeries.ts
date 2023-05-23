@@ -2,12 +2,21 @@ import type { SeriesOption } from "echarts/types/dist/shared";
 import { SeriesMaker } from ".";
 import type { TEChartOption } from "../../onTuneChartConst";
 import type { OnTuneChart } from "../onTuneChart";
-import type { ISeriesBasic } from "./seriesBasic";
+import type { ISeriesBasic, TSeriesMaxValue } from "./seriesBasic";
 import { SeriesError } from "./seriesError";
 
 export type TSeriesType = 'SeriesUndefined' | 'Serieses' | 'Series' | 'SeriesError';
 
 export class OnTuneChartSeries {
+    seriesMaxValue: TSeriesMaxValue;
+    
+    markedSeries: SeriesOption | SeriesOption[] | undefined;
+
+    constructor(){
+        this.seriesMaxValue = {} as TSeriesMaxValue;
+        this.markedSeries = undefined;
+    };
+
     getOnTuneSeries( onTuneChart: OnTuneChart ){
         const option = onTuneChart.eChart.getOption() as TEChartOption;
         const series = option.series;

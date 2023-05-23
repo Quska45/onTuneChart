@@ -1,6 +1,6 @@
 import type { EChartsOption } from "echarts/types/dist/shared";
 import type { LineSeriesOption } from "echarts/charts";
-import { CHART_COMPONENT_DEFAULT_VALUE, OntuneChartHtmlLegendPositionConst } from "../../../onTuneChartConst";
+import { CHART_COMPONENT_DEFAULT_VALUE, OntuneChartHtmlLegendPositionConst, type TEChartOption } from "../../../onTuneChartConst";
 import type { OnTuneChart } from "../../../onTuneChartScript/onTuneChart";
 import { OnTuneChartSeries2 } from "../../../onTuneChartScript/onTuneChartSeries2";
 
@@ -22,6 +22,7 @@ export type TOnTuneChartSettingItemValues = {
     xAxis: TOnTuneChartSettingItemValue[],
     yAxis: TOnTuneChartSettingItemValue[],
     secondYAxis: TOnTuneChartSettingItemValue[],
+    aodMaxTooltip: TOnTuneChartSettingItemValue[],
 };
 
 const YAXIS_MIN_OPTION_VALUES = [ 0, 100, 500, 1000, 2000, 3000, 5000, 8000, 10000 ];
@@ -435,6 +436,23 @@ export const onTuneChartSettingItemValues: TOnTuneChartSettingItemValues = {
 
                 onTuneChartConfig.secondYAxis.position = selectedValue;
                 onTuneChart.eChart.setOption( option );          
+            }
+        }
+    ],
+    aodMaxTooltip: [
+        {
+            id: 'position',
+            KR: '최대값 툴팁의 위치',
+            EN: '최대값 툴팁의 위치',
+            type: 'select',
+            optionValues: [ 'first', 'middle', 'last' ],
+            options: [ 'first', 'middle', 'last' ],
+            arg: null,
+            callback: function( selectedValue: any, onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE, onTuneChart: OnTuneChart ){
+                selectedValue = selectedValue as string;
+                onTuneChart.addAodMaxTooltip( selectedValue );
+                // const option = onTuneChart.eChart.getOption();
+                // onTuneChart.eChart.setOption( option ); 
             }
         }
     ]

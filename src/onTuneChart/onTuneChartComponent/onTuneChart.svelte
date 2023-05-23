@@ -148,7 +148,14 @@
                 max: onTuneChartConfig.secondYAxis.max,
                 position: echartOptionMaker.getYAxisPosition( onTuneChartConfig.secondYAxis.position ),
                 axisLabel: {
-                    formatter: `{value}`
+                    formatter: ( value: number ) => {
+                        if( typeof value !== 'number' ){
+                            return '{value}'
+                        };
+
+                        const result = value <= 1000 ? value : `${value / 1000}K`;
+                        return result.toString();
+                    }
                 }
             }
         ],

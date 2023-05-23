@@ -72,8 +72,11 @@ export class OnTuneChart {
             yAxisMax: yAxisMax,
         };
 
-        const xyAxisMinMax = onTuneChartSeries.getSeriesMaxValueArr( XYAxisMinMax );
-        const markedSeries = onTuneChartSeries.getMarkedSeries( xyAxisMinMax, aodMaxTooltipPosition );
+        const seriesMaxValueArr = onTuneChartSeries.getSeriesMaxValueArr( XYAxisMinMax );
+        const seriesMaxValue = onTuneChartSeries.getSeriesMaxValue( seriesMaxValueArr, aodMaxTooltipPosition );
+        const markedSeries = onTuneChartSeries.getMarkedSeries( seriesMaxValue );
+        this.onTuneChartSeries.seriesMaxValue = seriesMaxValue;
+        this.onTuneChartSeries.markedSeries = markedSeries;
 
         const option = this.eChart.getOption();
         option.series = markedSeries;

@@ -147,6 +147,16 @@
                     {/if}
                 {/if}
             {/each}
+        {:else if id === 'aodMaxTooltip'}
+            {#each option.options as param, i}
+                {#if option.id === 'position'}
+                    {#if option.optionValues[i] === onTuneChartConfig.aodMaxTooltip.position}
+                        <option value="{option.optionValues[i]}" selected>{param}</option>
+                    {:else}
+                        <option value="{option.optionValues[i]}">{param}</option>
+                    {/if}
+                {/if}
+            {/each}
         {/if}
     </select>
 </div>
