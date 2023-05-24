@@ -35,7 +35,7 @@
         width: 50%;
         height: 100%;
         position: absolute;
-        background-color: red;
+        background-color: white;
         z-index: 10;
         top: 0;
         right: 0;

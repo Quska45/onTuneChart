@@ -160,3 +160,23 @@
         {/if}
     </select>
 </div>
+
+<style>
+    div {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        font-weight: bold;
+        align-items: center;
+        padding: 5px 0;
+    }
+    label {
+        width: 50%;
+    }
+    select {
+        width: 50%;
+        font-size: 12px;
+        font-weight: lighter;
+        height: 40px;
+    }
+</style>

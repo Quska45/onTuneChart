@@ -17,7 +17,9 @@
     const aodMaxTooltip = onTuneChartSettingItemValues.aodMaxTooltip;
 </script>
 
-<Tabs>
+<Tabs
+    defaultClass={'flex overflow-y-auto w-11/12'}
+>
     <OnTuneChartSettingTabItem
         tabOpen={true}
         id={'htmlLegend'}
