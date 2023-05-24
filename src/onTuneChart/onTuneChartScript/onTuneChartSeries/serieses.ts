@@ -67,14 +67,15 @@ export class Serieses implements ISeriesBasic {
 
     getMarkedSeries( seriesMaxValue: TSeriesMaxValue ){
         const maxValueSeries = this.series[ seriesMaxValue.maxSeriesIndex ];
+        const formatMaxValue = seriesMaxValue.maxValue.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
-        this.series.forEach(( cur, i ) => {
+        this.series.forEach(( cur ) => {
             cur.markPoint = {};
         });
 
         maxValueSeries.markPoint = {
             data: [{
-                value: seriesMaxValue.maxValue,
+                value: formatMaxValue,
                 coord: [seriesMaxValue.maxCoord, seriesMaxValue.maxValue],
             }],
         };

@@ -80,7 +80,7 @@ export class OnTuneChart {
 
         const option = this.eChart.getOption();
         option.series = markedSeries;
-        this.eChart.setOption( option );
+        this.eChart.setOption( option, true );
     };
 
     addIndicator(){

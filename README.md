@@ -2,7 +2,7 @@
 
 ### Github Page
 
-https://teemstone-lab.github.io/ontuneV5_test/
+https://quska45.github.io/onTuneChart/?path=/story/example-v5-ontunechart--primary
 
 ### How I setup this repo:
 

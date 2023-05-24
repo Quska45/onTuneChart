@@ -2,7 +2,7 @@
     import type { CHART_COMPONENT_DEFAULT_VALUE } from "../../../onTuneChartConst";
     import type { OnTuneChart } from "../../../onTuneChartScript/onTuneChart";
     import { onTuneChartSettingItemValues } from "../onTuneChartSetting/onTuneChartSettingConst";
-    import { Tabs, TabItem } from 'flowbite-svelte';
+    import { Tabs } from 'flowbite-svelte';
     import OnTuneChartSettingTabItem from "./onTuneChartSettingTabItem.svelte";
 
     export let onTuneChart: OnTuneChart;
