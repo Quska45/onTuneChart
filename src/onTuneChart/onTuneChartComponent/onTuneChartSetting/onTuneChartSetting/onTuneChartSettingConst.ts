@@ -1,8 +1,9 @@
 import type { EChartsOption } from "echarts/types/dist/shared";
 import type { LineSeriesOption } from "echarts/charts";
-import { CHART_COMPONENT_DEFAULT_VALUE, OntuneChartHtmlLegendPositionConst, type TEChartOption } from "../../../onTuneChartConst";
+import { CHART_COMPONENT_DEFAULT_VALUE, OntuneChartHtmlLegendPositionConst } from "../../../onTuneChartConst";
 import type { OnTuneChart } from "../../../onTuneChartScript/onTuneChart";
 import { OnTuneChartSeries2 } from "../../../onTuneChartScript/onTuneChartSeries2";
+import { EChartOptionMaker } from "../../../eChartOptionMaker";
 
 export type TOnTuneChartSettingItemValue = {
     id: string,
@@ -27,7 +28,7 @@ export type TOnTuneChartSettingItemValues = {
 
 const YAXIS_MIN_OPTION_VALUES = [ 0, 100, 500, 1000, 2000, 3000, 5000, 8000, 10000 ];
 const YAXIS_MIN_OPTIONS = [ 0, 100, 500, 1000, 2000, 3000, 5000, 8000, 10000 ];
-const YAXIS_POSITION_OPTION_VALUES = [ 'right', 'left' ];
+const YAXIS_POSITION_OPTION_VALUES = [ 'RIGHT', 'LEFT' ];
 const YAXIS_POSITION_OPTIONS = [ 'right', 'left' ];
 const BOOLEAN_OPTIOSN = [ true, false ];
 
@@ -293,8 +294,8 @@ export const onTuneChartSettingItemValues: TOnTuneChartSettingItemValues = {
             callback: function( selectedValue: any, onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE, onTuneChart: OnTuneChart ){
                 const option = onTuneChart.eChart.getOption() as EChartsOption;
                 const yAxis = option.yAxis;
-                selectedValue = Number(selectedValue as string);
-                
+                selectedValue = JSON.parse( selectedValue );
+
                 if( yAxis === undefined ){
                     return;
                 } else if( 'length' in yAxis ){
@@ -316,9 +317,11 @@ export const onTuneChartSettingItemValues: TOnTuneChartSettingItemValues = {
             options: YAXIS_POSITION_OPTIONS,
             arg: null,
             callback: function( selectedValue: any, onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE, onTuneChart: OnTuneChart ){
+                const echartOptionMaker = new EChartOptionMaker();
                 const option = onTuneChart.eChart.getOption() as EChartsOption;
                 const yAxis = option.yAxis;
-                selectedValue = Number(selectedValue as string);
+                selectedValue = selectedValue as string;
+                selectedValue = echartOptionMaker.getYAxisPosition( selectedValue );
                 
                 if( yAxis === undefined ){
                     return;
@@ -350,8 +353,8 @@ export const onTuneChartSettingItemValues: TOnTuneChartSettingItemValues = {
                 if( yAxis === undefined ){
                     return;
                 } else if( 'length' in yAxis ){
-                    const index = yAxis.length > 1 ? 1 : 0;
-                    yAxis[ index ].min = selectedValue;
+                    // const index = yAxis.length > 1 ? 1 : 0;
+                    yAxis[ 1 ].min = selectedValue;
                 } else {
                     yAxis.min = selectedValue;
                 };
@@ -376,8 +379,8 @@ export const onTuneChartSettingItemValues: TOnTuneChartSettingItemValues = {
                 if( yAxis === undefined ){
                     return;
                 } else if( 'length' in yAxis ){
-                    const index = yAxis.length > 1 ? 1 : 0;
-                    yAxis[ index ].max = selectedValue;
+                    // const index = yAxis.length > 1 ? 1 : 0;
+                    yAxis[ 1 ].max = selectedValue;
                 } else {
                     yAxis.max = selectedValue;
                 };
@@ -397,13 +400,14 @@ export const onTuneChartSettingItemValues: TOnTuneChartSettingItemValues = {
             callback: function( selectedValue: any, onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE, onTuneChart: OnTuneChart ){
                 const option = onTuneChart.eChart.getOption() as EChartsOption;
                 const yAxis = option.yAxis;
-                selectedValue = Number(selectedValue as string);
+                selectedValue = JSON.parse( selectedValue );
+                console.log('selectedValue', selectedValue);
                 
                 if( yAxis === undefined ){
                     return;
                 } else if( 'length' in yAxis ){
-                    const index = yAxis.length > 1 ? 1 : 0;
-                    yAxis[ index ].show = selectedValue;
+                    // const index = yAxis.length > 1 ? 1 : 0;
+                    yAxis[ 1 ].show = selectedValue;
                 } else {
                     yAxis.show = selectedValue;
                 };
@@ -421,15 +425,17 @@ export const onTuneChartSettingItemValues: TOnTuneChartSettingItemValues = {
             options: YAXIS_POSITION_OPTIONS,
             arg: null,
             callback: function( selectedValue: any, onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE, onTuneChart: OnTuneChart ){
+                const echartOptionMaker = new EChartOptionMaker();
                 const option = onTuneChart.eChart.getOption() as EChartsOption;
                 const yAxis = option.yAxis;
                 selectedValue = selectedValue as string;
+                selectedValue = echartOptionMaker.getYAxisPosition( selectedValue );
                 
                 if( yAxis === undefined ){
                     return;
                 } else if( 'length' in yAxis ){
-                    const index = yAxis.length > 1 ? 1 : 0;
-                    yAxis[ index ].position = selectedValue;
+                    // const index = yAxis.length > 1 ? 1 : 0;
+                    yAxis[ 1 ].position = selectedValue;
                 } else {
                     yAxis.position = selectedValue;
                 };
@@ -451,8 +457,6 @@ export const onTuneChartSettingItemValues: TOnTuneChartSettingItemValues = {
             callback: function( selectedValue: any, onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE, onTuneChart: OnTuneChart ){
                 selectedValue = selectedValue as string;
                 onTuneChart.addAodMaxTooltip( selectedValue );
-                // const option = onTuneChart.eChart.getOption();
-                // onTuneChart.eChart.setOption( option ); 
             }
         }
     ]

@@ -13,6 +13,9 @@
     function changeEvent( event: Event, option: TOnTuneChartSettingItemValue ){
         const selectedIndex = selectbox.selectedIndex;
         const selectedValue = selectbox.options[selectedIndex].value;
+
+        console.log('selectedIndex', selectedIndex);
+        console.log('selectedValue', selectedValue);
         
         option.callback( selectedValue, onTuneChartConfig, onTuneChart );
         onTuneChartConfig = onTuneChartConfig;
