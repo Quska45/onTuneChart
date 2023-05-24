@@ -43,10 +43,12 @@
         flex-direction: row;
         justify-content: space-between;
     }
-
+    
     .onTune_chart_title {
         width: 100%;
         height: 100%;
+        display: flex;
+        align-items: center;
     }
 
     .onTune_chart_setting_button {

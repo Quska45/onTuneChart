@@ -5,6 +5,7 @@ import type { OnTuneChart } from "../../../onTuneChartScript/onTuneChart";
 import { OnTuneChartSeries2 } from "../../../onTuneChartScript/onTuneChartSeries2";
 import { EChartOptionMaker } from "../../../eChartOptionMaker";
 
+export type TInputType = 'number' | 'string' | 'decimal';
 export type TOnTuneChartSettingItemValue = {
     id: string,
     KR: string,
@@ -13,6 +14,7 @@ export type TOnTuneChartSettingItemValue = {
     optionValues: Array<any>,
     options: Array<any>,
     arg: null,
+    inputType?: TInputType,
     callback: ( selectedValue: any, onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE, onTuneChart: OnTuneChart ) => void,
 };
 
@@ -68,10 +70,11 @@ export const onTuneChartSettingItemValues: TOnTuneChartSettingItemValues = {
             id: 'globalTension',
             KR: '전체 라인 곡률',
             EN: '전체 라인 곡률',
-            type: 'select',
+            type: 'input',
             optionValues: [0, 0.1, 0.2, 0.3, 1],
             options: [0, 0.1, 0.2, 0.3, 1],
             arg: null,
+            inputType: 'decimal',
             callback: function( selectedValue: any, onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE, onTuneChart: OnTuneChart ){
                 const option = onTuneChart.eChart.getOption() as EChartsOption;
                 const series = option.series;
@@ -96,10 +99,11 @@ export const onTuneChartSettingItemValues: TOnTuneChartSettingItemValues = {
             id: 'globalWidth',
             KR: '전체 라인 넓이',
             EN: '전체 라인 넓이',
-            type: 'select',
+            type: 'input',
             optionValues: [1, 2, 3, 4, 5],
             options: [1, 2, 3, 4, 5],
             arg: null,
+            inputType: 'number',
             callback: function( selectedValue: any, onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE, onTuneChart: OnTuneChart ){
                 const option = onTuneChart.eChart.getOption() as EChartsOption;
                 const series = option.series;
@@ -401,7 +405,6 @@ export const onTuneChartSettingItemValues: TOnTuneChartSettingItemValues = {
                 const option = onTuneChart.eChart.getOption() as EChartsOption;
                 const yAxis = option.yAxis;
                 selectedValue = JSON.parse( selectedValue );
-                console.log('selectedValue', selectedValue);
                 
                 if( yAxis === undefined ){
                     return;
