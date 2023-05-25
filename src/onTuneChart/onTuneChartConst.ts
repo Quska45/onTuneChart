@@ -1,7 +1,7 @@
 import type { LineSeriesOption } from "echarts/charts";
 import type { DatasetComponentOption, DataZoomComponentOption, GraphicComponentOption, GridComponentOption, MarkPointComponentOption, TitleComponentOption, ToolboxComponentOption, TooltipComponentOption } from "echarts/components";
 import type { ComposeOption } from "echarts/core";
-import type { InsideDataZoomOption, MarkPointOption, SliderDataZoomOption } from "echarts/types/dist/shared";
+import type { AxisPointerOption, GraphicComponentLooseOption, GridOption, InsideDataZoomOption, MarkPointOption, SliderDataZoomOption } from "echarts/types/dist/shared";
 
 export const OntuneChartHtmlLegendPositionConst =  [ 'TOP', 'RIGHT', 'BOTTOM', 'LEFT' ];
 export type TOntuneChartHtmlLegendPosition = 'TOP' | 'RIGHT' | 'BOTTOM' | 'LEFT';
@@ -40,6 +40,13 @@ export const CHART_COMPONENT_DEFAULT_VALUE = {
     },
     aodMaxTooltip: {
         position: 'last' as TAodMaxTooltipPosition,
+    },
+    eventIndicator: {
+        first: 10,
+        second: 20,
+        third: 30,
+        fourth: 40,
+        fifth: 50
     }
 };
 
@@ -55,8 +62,9 @@ export type TEChartOption = ComposeOption<
     DataZoomComponentOption |
     MarkPointOption |
     MarkPointComponentOption |
-    GraphicComponentOption
-    
+    GraphicComponentOption |
+    GraphicComponentLooseOption |
+    GridOption
 > & {animation: boolean};
 
 export const LineColor = {

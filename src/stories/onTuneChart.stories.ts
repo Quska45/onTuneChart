@@ -15,7 +15,7 @@ export default {
     componentHeight: {
       control: { type: 'select' },
       options: ['500px'],
-      description: 'storybook에서 width, height가 없으면 스타일 적용이 제대로 안되는 문제가 있어 추가. 추후 삭제 예정',
+      description: '사용자는 쓰지 않는 속성. storybook에서 width, height가 없으면 스타일 적용이 제대로 안되는 문제가 있어 추가. 추후 삭제 예정',
     },
     onTuneChartConfig: {
       control: { type: 'object' },
@@ -80,4 +80,5 @@ Primary.args = {
   },
   xAxisDatas: testDataMaker.getCategories(),
   series: testDataMaker.getSeries( 1, globalLineTension ),
+  isTitleShow: true,
 };

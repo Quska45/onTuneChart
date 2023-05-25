@@ -16,12 +16,14 @@
     import moment from "moment";
     import { OnTuneChartXAxis } from "../onTuneChartScript/onTuneChartAxis/onTuneChartXAxis/onTuneChartXAxis";
     import { EChartOptionMaker } from "../eChartOptionMaker";
+    import { left } from "@popperjs/core";
 
     let isMount = false;
     export let componentWidth: string;
     export let componentHeight: string;
     export let xAxisDatas: any[];
     export let series: LineSeriesOption[] | undefined;
+    export let isTitleShow: boolean = true;
 
     // chart component props related with config
     export let onTuneChartConfig: typeof CHART_COMPONENT_DEFAULT_VALUE = { 
@@ -54,6 +56,13 @@
         },
         aodMaxTooltip: {
             position: CHART_COMPONENT_DEFAULT_VALUE.aodMaxTooltip.position,
+        },
+        eventIndicator: {
+            first: CHART_COMPONENT_DEFAULT_VALUE.eventIndicator.first,
+            second: CHART_COMPONENT_DEFAULT_VALUE.eventIndicator.second,
+            third: CHART_COMPONENT_DEFAULT_VALUE.eventIndicator.third,
+            fourth: CHART_COMPONENT_DEFAULT_VALUE.eventIndicator.fourth,
+            fifth: CHART_COMPONENT_DEFAULT_VALUE.eventIndicator.fifth,
         }
     };
 
@@ -74,11 +83,11 @@
     let blockerDisplayValue: string;
     let seriesTerm = OnTuneChartSeries2.getSeriesTerm( series );
 
-    console.log( 'xAxisDatas', xAxisDatas );
-    console.log( 'series', series );
-    console.log( 'onTuneChartConfig', onTuneChartConfig );
-
     // echarts config option
+    const gridTop = 50;
+    const gridBottom = 50;
+    const gridLeft = 50;
+    const gridRight = 50;
     let eChartOption: TEChartOption = {
         title: {
             id: onTuneChartConfig.title.text,
@@ -90,8 +99,10 @@
         },
         animation: false,
         grid: {
-            left: 50,
-            right: 50
+            top: gridTop,
+            bottom: gridBottom,
+            left: gridLeft,
+            right: gridRight
         },
         xAxis: [
             {
@@ -138,6 +149,11 @@
                         const result = value <= 1000 ? value : `${value / 1000}K`;
                         return result.toString();
                     }
+                },
+                triggerEvent: false,
+                axisPointer: {
+                    triggerTooltip: false,
+                    triggerOn: 'none',
                 }
             },
             {
@@ -156,8 +172,18 @@
                         const result = value <= 1000 ? value : `${value / 1000}K`;
                         return result.toString();
                     }
+                },
+                triggerEvent: false,
+                axisPointer: {
+                    triggerTooltip: false,
+                    triggerOn: 'none',
                 }
-            }
+            },
+            echartOptionMaker.getEventIndicator( 'eventIndicatorYAxis1', '#ff0000', 1000, 'left' ),
+            echartOptionMaker.getEventIndicator( 'eventIndicatorYAxis2', '#ff8c00', 2000, 'left' ),
+            echartOptionMaker.getEventIndicator( 'eventIndicatorYAxis3', '#ffff00', 3000, 'left' ),
+            echartOptionMaker.getEventIndicator( 'eventIndicatorYAxis4', '#ff8c00', 4000, 'left' ),
+            echartOptionMaker.getEventIndicator( 'eventIndicatorYAxis5', '#0000ff', 5000, 'left' ),
         ],
         series: OnTuneChartSeries2.getConditionCheckedSeries( series ),
         toolbox: {
@@ -167,15 +193,42 @@
             },
         },
         tooltip: {
-            show: true,
+            // show: true,
             trigger: 'axis',
+            // showContent: true,
+            triggerOn: 'none',
             axisPointer: {
-                type: 'cross'
+                type: 'cross',
             },
         },
+        graphic: {
+            elements: [
+                {
+                    id: 'line1',
+                    type: 'line',
+                    shape: {
+                        x1: 0,
+                        y1: gridTop,
+                        x2: 0,
+                        y2: 0,
+                    },
+                    z: 10,
+                    style: {
+                        stroke: 'red',
+                        lineWidth: 2,
+                    },
+                    invisible: true,
+                }
+            ],
+        }
         // dataZoom: [
         // ]
     };
+
+    console.log( 'xAxisDatas', xAxisDatas );
+    console.log( 'series', series );
+    console.log( 'onTuneChartConfig', onTuneChartConfig );
+    console.log( 'eChartOption', eChartOption );
 
 
     // onTuneGrid option
@@ -192,7 +245,9 @@
         onTuneChart.addIndicator();
         onTuneChart.addAodMaxTooltip( onTuneChartConfig.aodMaxTooltip.position );
 
-        chartBodyInstance = new ChartBody( chartBody, () => onTuneChart.eChart.resize() );
+        chartBodyInstance = new ChartBody( chartBody, () => {
+            onTuneChart.eChart.resize({width: 'auto'})
+        } );
         
         resizeBarInstance = new ResizeBars[ onTuneChartConfig.htmlLegend.position ]( resizeBar, chartBody, legendContainer );
         resizeBarInstance.resizeStart();
@@ -213,19 +268,21 @@
             displayValue = {blockerDisplayValue}
         />
 
-        <OnTuneChartTitle
-            bind:onTuneChart
-            bind:onTuneChartConfig
-            bind:blockerDisplayValue
-        />
+        {#if isTitleShow}
+            <OnTuneChartTitle
+                bind:onTuneChart
+                bind:onTuneChartConfig
+                bind:blockerDisplayValue
+            />
 
-        <OnTuneChartSetting
-            bind:displayValue = {blockerDisplayValue}
-            bind:onTuneChart
-            bind:onTuneChartConfig
-        />
+            <OnTuneChartSetting
+                bind:displayValue = {blockerDisplayValue}
+                bind:onTuneChart
+                bind:onTuneChartConfig
+            />
+        {/if}
 
-        <div bind:this="{chartContainer}" class="onTune_chart_container" style="flex-direction: {ChartStyle.container.flexDirection};">
+        <div bind:this="{chartContainer}" class="onTune_chart_container {isTitleShow ? null : 'no_title'}" style="flex-direction: {ChartStyle.container.flexDirection};">
             <div bind:this="{chartBody}" class="onTune_chart_body"
                 style="
                     width: {ChartStyle.body.width};
@@ -278,6 +335,12 @@
     .onTune_chart_container {
         width: 100%;
         height: calc(100% - 40px);
+        display: flex;
+    }
+
+    .onTune_chart_container.no_title {
+        width: 100%;
+        height: 100%;
         display: flex;
     }
 

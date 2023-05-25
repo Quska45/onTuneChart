@@ -76,7 +76,7 @@ export class TestDataMaker {
                 
                 timeStr = `${hour}:${min}:${sec}`;
 
-                const newValue = parseInt((Math.random() * 10000).toString());
+                const newValue = parseInt((Math.random() * 5001).toString());
                 dataset.data.push(
                     [
                         timeStr,
